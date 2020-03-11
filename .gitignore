@@ -1,0 +1,7 @@
+*~
+*.elc
+auto-save-list
+elpa
+elpy
+snippets
+transient
