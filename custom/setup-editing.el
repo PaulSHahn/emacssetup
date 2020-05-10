@@ -1,3 +1,6 @@
+(setq-default fill-column 160)
+
+(global-whitespace-cleanup-mode)
 
 (setq global-mark-ring-max 5000;
       mark-ring-max 5000;
