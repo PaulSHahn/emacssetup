@@ -19,8 +19,8 @@ git clone git@github.com:PaulSHahn2/emacssetup.git .emacs.d/
 
 If your OS doesn't have at least version 26 of *emacs* installed, you will want to build your own.
 
-You may want to build your own once you have an extensive setup. Modern versions of *emacs* use packages, so the default version provided by your
-distribution is not as likely to be as broken as they used to be.
+You may want to build your own once you have an extensive setup. Modern versions of *emacs* use packages, so the versions provided by your distribution are more
+suitable than they used to be.
 
 # Building
 
