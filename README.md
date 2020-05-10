@@ -1,7 +1,6 @@
 # emacssetup
 
-Emacs setup files for Python and Javascript development. The current master branch is for an *emacs* 26 setup.  Emacs 27 is on its way and will simplify
-Javascript setup and provide native support for typescript.
+Emacs setup files for Python and Javascript development. The current master branch is for an *emacs* 26 setup.
 
 # Using this repository
 
