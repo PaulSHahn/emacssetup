@@ -1,7 +1,6 @@
 # emacssetup
 
-Emacs setup tailored for the Python and Javascript development we will be doing at *NPC*. Currently, the master branch contains settings intended for *emacs*
-major version 26.
+GNU *emacs* setup tailored for Python and Javascript development at *NPC*. Currently, the master branch contains settings intended for GNU *emacs* major version 26.
 
 # Emacs setup notes
 
@@ -12,6 +11,18 @@ Many other resources are available as well. Some quality ones:
 
 * <https://www.emacswiki.org/>
 * <http://ergoemacs.org/>
+* <https://www.reddit.com/r/emacs/>
+
+Modified distributions of *emacs* that you may wish to try, but that won't work with this setup:
+
+Geared to beginners with some *vi/vim* experience:
+
+* <https://www.spacemacs.org/>
+
+Geared to more experience power users who want a leaner experience than the above:
+
+* <https://github.com/hlissner/doom-emacs>
+
 
 Again, if you don't know *emacs*, please read the GNU manual and go through the basic exercises before attempting to use this setup.
 
@@ -42,12 +53,13 @@ Again, if you don't know *emacs*, please read the GNU manual and go through the 
 # Finish setup of your emacs after cloning
 
 1. When you first start *emacs* after cloning, you will get errors that show in the terminal window. This is because the settings you have cloned from *git* reference
-   packages that have not yet been installed. Let's install them locally to your home *.emacs.d* directory:
+   packages that have not yet been installed. Let's install them locally to your home *.emacs.d* directory.
 
 2. Start *emacs*, then list your installed packages:
     * **M-x list-packages:** This shows the packages. Press 'r' to reload available packages from the configured repositories (melpa).
-    * **M-x package-install-selected-packages:** installs all packages listed in *.emacs.d/init.el* file (listed in section package-selected-packages). Note
-    that it may appear that *emacs* has hung when you run this. You may see a message in the mini-buffer that states: "Contacting Melpa...".  You are especially
+    * **M-x package-install-selected-packages:** installs all packages listed in *.emacs.d/init.el* file (listed in section package-selected-packages).
+
+    Note that it may appear that *emacs* has hung when you run this. You may see a message in the mini-buffer that states: *"Contacting Melpa..."*.  You are especially
     likely to see this if you have a slow or flaky connection. If you look in directory *~/.emacs.d/elpha/* you will likely see that packages are appearing as
     they are downloaded. If you restart *emacs* before it finishes, thinking it has hung-- then it will loose track of the current package. You will just end up
     having to restart the download for that package again.
@@ -87,9 +99,9 @@ By default, *emacsclient* starts a new client that connects to the existing emac
  instead startup some other editor that you specified as a backup option.
 
 At this point, I use the *VISUAL* variable for editors running in *X* or *wayland* and *EDITOR* for editors running inside a terminal. This is not really what
-they were originally intended for, but that usage is largely archaic anyway (unless you have a 300 buad modem and a printer instead of a display screen).
+they were originally intended for, but that usage is largely archaic anyway (unless you have a 300 baud modem and a printer instead of a display screen).
 
-I pass *-t* to run a terminal version when EDITOR is called by the OS or some other running program. This starts a new *emacs* client inside the terminal.
+I pass *-t* to run a terminal version when EDITOR is used by some other program. This starts a new *emacs* client inside the terminal.
 
 When *VISUAL* is used I create a new window (*frame* in emacs-speak) via *-c*. Without this, *emacs* would try and find an existing window and change the
 contents of that window. I prefer to have a new window (er... frame) for everything I explicitly open.
@@ -104,9 +116,9 @@ Some of the packages included in this setup:
 ## projectile
 
 Projectile is an *emacs* package that adds support and awareness for management of development projects. This is similar to how monolithic IDE's provide their
-own (often IDE specific) project file format (or something like *Maven*).  Projectile includes support for automatic refactoring of code and movement between
-files within projects.  It is programming language and tool agnostic and attempts to recognize projects of many different types and tools. Frequently support is
-added via the use of other pluggable support packages.
+own (often IDE specific) project file format (or use something like *Maven*).  Projectile includes support for automatic refactoring of code and movement
+between files within projects.  It is programming language and tool agnostic and attempts to recognize projects of different types created by different
+tools. Frequently support for specific project types is added via the use of tool specific packages.
 
 <https://docs.projectile.mx/en/latest/>
 
@@ -115,6 +127,8 @@ added via the use of other pluggable support packages.
 Advanced Completion engine. This extends and replaces the default tab completion that comes out of the box with *emacs*.
 
 <https://emacs-helm.github.io/helm/>
+
+Other options exist as well, like ido and ivy/counsel.
 
 ## elpy
 
@@ -146,8 +160,9 @@ I have two different ways to get rid of whitespace.
 Which one to use?
 
 If you are working on legacy code with others, you may want to use *ws-butler*. Otherwise, if you use whitespace-cleanup-mode you will have huge commit sizes
-that have nothing to do with your change, since you will have reformatted the entire file every-time you save. If you are on greenfield development it should not
-matter-- ws-bulter will keep you safe to begin with. If you are refactoring or cleaning up code, then whitespace-cleanup-mode may be a better choice.
+that have nothing to do with your change. This occurs since you will have reformatted the entire file every-time you save. If you are on greenfield development
+it should not matter-- ws-bulter will keep you safe to begin with. If you are refactoring or cleaning up code, then whitespace-cleanup-mode may be a better
+choice.
 
 You can manually start whitespace-cleanup-mode on any buffer via *M-x whitespace-cleanup-mode*. You can set it up to be always on instead of ws-bulter by
 editing *~/emacs.d/custom/setup-editing.el* and removing the lines commenting out global-whitespace-cleanup-mode. You should also comment out ws-butler at the
@@ -158,7 +173,7 @@ same time (since you really only need one running at a time).
 
 **fixme** Add links and stuff when the Javascript setup for this is finalized (probably not until emacs 27).
 
-# Building emacs
+# Building your own emacs
 
 Below are some quick instructions on building your own *emacs*, in case you need or want to.
 
