@@ -1,29 +1,47 @@
 # emacssetup
 
-Emacs setup files for Python and Javascript development. The current master branch is for an *emacs* 26 setup.
+Emacs setup tailored for the Python and Javascript development we will be doing at *NPC*. Currently, the master branch contains setting intended for *emacs*
+major version 26.
+
+# Emacs setup notes
+
+**Note:** If you are new to *emacs* you may want to read some tutorials at this point. I would read the GNU info manual for *emacs*. You can do this on your
+local machine using the *info* command, or online: <https://www.gnu.org/software/emacs/manual/>.
+
+Many other resources are available as well. Some quality ones:
+
+* <https://www.emacswiki.org/>
+* <http://ergoemacs.org/>
+
+Again, if you don't know *emacs*, please read the GNU manual and go through the basic exercises attempting to use this setup.
 
 # Using this repository
 
 *So what do you do with this repo?*
 
-Well, you clone it into your *emacs* settings directory, at: *~/.emacs.d*:
+Well, I clone it to my *emacs* settings directory at: *~/.emacs.d*. I do this on all the machines that I use:
 
 ```bash
+# goto home directory
 cd ~/
-mv ~/.emacs.d ./.emacs.d.old
-git clone git@github.com:PaulSHahn2/emacssetup.git .emacs.d/
+# move your old emacs settings, if any-- out of the way
+mv ~/.emacs.d ~/.emacs.d.old
+# clone your new settings directory
+git clone git@github.com:PaulSHahn2/emacssetup.git ~/.emacs.d/
 ```
 
-# Build your own emacs or use what the OS distribution provided?
+This allows me to have one setup for all instances of *emacs* and to keep that setup synchronized.
 
-If your OS doesn't have at least version 26 of *emacs* installed, you will want to build your own.
+If you wish to reuse this, you should probably either *fork* this repository to your github home, or use the github template feature to create a new repository
+containing this ones' latest and greatest contents.
 
-You may want to build your own once you have an extensive setup. Modern versions of *emacs* use packages, so the versions provided by your distribution are more
-suitable than they used to be.
+When you are done with that, then you can clone and modify your new repository to meet your needs.
 
 # Building
 
-## Building On Ubuntu LTS (pxmicroservdev & pxmicroserv):
+Below are some quick instructions on building your own *emacs*, in case you need or want to.
+
+## Building emacs 26 On Ubuntu LTS:
 
 ```bash
 # add sources repos in /etc/apt/sources.list by uncommenting srcs repositories matching the binary equivalents.
@@ -38,98 +56,152 @@ sudo chmod 755 /opt/npc
 sudo make install prefix=/opt/npc exec-prefix=/opt/npc
 ```
 
-# Setup your emacs after cloning
-1. On your first startup, you will likely get errors that show in the terminal
-   window. This is because needed packages will not be installed. Let's install them:
+**FIXME:** add SuSE and RHEL/CentOS build instructions
 
-2. Inside *emacs*, list your packages:
-    * **M-x list-packages:** shows the packages. Press 'r' to reload available packages.
-    * **M-x package-install-selected-packages:** installs all packages listed in *.emacs.d/init.el* file in section package-selected-packages.  Note that it may
-    appear that emacs has hung when you run this. You may see a message in the mini-buffer that states: "Contacting Melpa...".  You are especially likely to see
-    this if you have a slow or flaky connection. If you look in .emacs.d/elpha/ you will likely see that packages are appearing as they are downloaded. If you
-    restart emacs before it finishes, thinking it has hung-- then it will loose track of the current package and you will just end up starting all over.
+# Finish setup of your emacs after cloning
 
-3. Restart emacs entirely. If you are running emacs in *daemon mode*, kill the dameon: `killall emacs` You can also optionally tell emacs to re-read its config
-    files:
-   * **M-x load-file** *~/.emacs.d/emacs.init*
+1. On your first startup after cloning, you will get errors that show in the terminal window. This is because the settings you have cloned from *git* reference
+   packages that have not yet been installed. Let's install them locally to your home *.emacs.d* directory:
 
-    It is safer to just restart the editor.
+2. Start *emacs*, then list your installed packages:
+    * **M-x list-packages:** This shows the packages. Press 'r' to reload available packages from the configured repositories (melpa).
+    * **M-x package-install-selected-packages:** installs all packages listed in *.emacs.d/init.el* file (listed in section package-selected-packages). Note
+    that it may appear that *emacs* has hung when you run this. You may see a message in the mini-buffer that states: "Contacting Melpa...".  You are especially
+    likely to see this if you have a slow or flaky connection. If you look in directory *~/.emacs.d/elpha/* you will likely see that packages are appearing as
+    they are downloaded. If you restart *emacs* before it finishes, thinking it has hung-- then it will loose track of the current package. You will just end up
+    having to restart the download for that package again.
 
-# Using setup across multiple machines.
+3. Exit and restart *emacs*. If you are running *emacs* in *daemon mode*, kill the dameon: `killall emacs`.
 
-Since this is a git repository, it is easy to use across multiple machines, you just clone it to every machine where you use emacs. Occasionally, you may have
-issues with one machines version of emacs.  If you cannot modify your setup such that it works everywhere, then create a branch for each setup you need.
+# Using your settings across multiple machines
 
-A good example of this would be creating a branch for each major version of emacs: an emacs 26 version branch, and an emacs 25, and a 27 branch. Then you just
-clone the repo and use the branch you need.
+Since this is a *git* repository, it is easy to use across multiple machines, you just clone it to every machine where you use *emacs*. Occasionally, you may have
+issues with one machines version of *emacs*.  If you cannot modify your setup such that it works everywhere, then create a branch for each setup you need.
+
+A good example of this would be creating a branch for each major version of *emacs*: an emacs 26 branch, a 25 branch, etc. Then you just
+clone the repo and checkout the branch matching your version.
 
 # Committing Changes
 
 *Don't forget to commit and push your changes back to your forked repository.*
 
-You may want to exit *emacs* completely before you save your work. Emacs can interactively change the contents of your *~/emacs.d/init.el* file as it saves
-settings. You want to just go to the command line and use git to save and push your work.
+Note that *emacs* can interactively change the contents of your *~/emacs.d/init.el* file as it saves updates you have requested. Use *git* on the command line, or
+use *maggit* inside *emacs* to commit and push your changes back to your repository.
 
-# Emacs setup notes
+# Environment Setup
 
-**Note:** You should read the GNU info manual on *emacs* or you won't get anything out of what follows...
+I set up *emacs* to be the default editor in my bash environment. I do this by adding the following to file *~/.bashrc*:
 
-## Projectile
+```bash
+export VISUAL='emacsclient -c --alternate-editor='
+export EDITOR='emacsclient -t --alternate-editor='
+alias e="${VISUAL}"
+```
 
-Automatically manage and refactor code in projects.
+I like to run *emacs* in daemon mode (as a server). This is a better way to run *emacs* on modern systems, since it shares resources with other windowed
+instances of *emacs* and they are aware of what each other is doing.
+
+By default, *emacsclient* starts a new client that connects to the existing emacs daemon running in the background. The "--alternate-editor=" syntax is awkward,
+ but it essentially means start up a new *emacs* daemon if the client could not connect to an existing one. If you put an argument after the *=*, it would
+ instead startup some other editor that you specified as a backup option.
+
+Remember that the *VISUAL* variable is reserved for editors running in *X* or *wayland* and *EDITOR* is reserved for editors running inside a terminal. We pass
+*-t* to run a terminal version when EDITOR is called by the OS or some other running program. This starts a new *emacs* client inside the terminal.
+
+When we are running in a visual environment, we create a new window (*frame* in emacs-speak) via *-c*. Without this, *emacs* would try and find an existing
+window and change the contents of that window. I prefer to have a new window (er... frame) for everything I explicitly open.
+
+Note that these commands and options are specific to recent versions of *emacs*. Older versions of *emacs* and *emacsclient* take different options and
+*emacsclient* has a different name or doesn't exist at all on really old versions of *emacs*.
+
+# Packages installed with this setup
+
+Some of the packages included in this setup:
+
+## projectile
+
+Projectile is an *emacs* package that adds support and awareness for management of development projects. This is similar to how monolithic IDE's provide their
+own (often IDE specific) project file format (or something like *Maven*).  Projectile includes support for automatic refactoring of code and movement between
+files within projects.  It is programming language and tool agnostic and attempts to recognize projects of many different types and tools. Frequently support is
+added via the use of other pluggable support packages.
 
 <https://docs.projectile.mx/en/latest/>
 
-## Helm
+## helm
 
-Advanced Completion engine.
+Advanced Completion engine. This extends and replaces the default tab completion that comes out of the box with *emacs*.
 
 <https://emacs-helm.github.io/helm/>
 
 ## elpy
 
-Python IDE
+This package provides advanced Pythong specific IDE abilities and greatly enhances Python programming.
 
 <https://elpy.readthedocs.io/en/latest/introduction.html>
 
 ## maggit
 
-Git layer.
+A full *git* layer. This is very handy and very well done.
 
 <https://magit.vc/manual/magit/Getting-Started.html#Getting-Started>
 
+## markdown mode
+
+Provides the ability to edit markdown files and see the output of files edited.
+
+<https://www.emacswiki.org/emacs/MarkdownMode>
+
 ## tide & javascript
 
-fixme, add links and stuff.
+fixme, add links and stuff when the Javascript setup for this is finalized (probably not until emacs 27).
 
-## Kenesis Keyboard emacs setup
+# Kenesis Advantage II emacs setup
 
-What follows is specific to the keyboard I use and is of no use to anyone without it.
+What follows is specific to the keyboard I use. It is of no use to anyone who doesn't also use the Advantage II keyboard.
 
-Keyboard manual is here:
+Note that the Keyboard manual is here:
 
 <https://kinesis-ergo.com/wp-content/uploads/Adv2-Users-Manual-fw1.0.517-4-24-20.pdf>
 
-### Keypad layer
+## Keypad layer
 
-The *kp* prefix used below indicates that we are referring to the keypad layer of the Advantage keyboard. The shift key is also a layer, it makes the keys print
-capitals instead of lower case, and the number lock key locks the 10 key to numbers. In this case of the keypad layer, the keypad button triggers this separate
-mode. The keypad layer is used to run macros bound to keys (it is a programmable keyboard).  The default macros stored are for *emacs* commands.
+The *kp* prefix used below indicates that we are referring to the keypad layer of the Advantage II keyboard.
 
-The *kp* prefix is the default action of my foot pedal that I use with the keyboard, the pedal just presses keypad (like you would press the shift key) and that
-puts the keyboard in the alternate entry mode.
+What does *keypad layer* jargon mean?
 
-So when we press and hold the footpedal and hit the c key (*kp-c*) the keyboard runs an internal macro that we have programmed. It then "types": *Cntl-c p
-c*. This is the command to compile a project.
+Well, another layer you have used on any keyboard is the shift layer. The shift key temporarily enters this layer while held down. The capslock toggles turning
+it off and on. Obviously, the shift layer makes the keys print capitals instead of lower case. Similarly, the number lock key locks the 10 key to emit numbers.
 
+In this case of the keypad layer, the *keypd* button at the top right triggers this separate mode. It is used out of the box to let you ten key. Like most
+laptop keyboards, the keyboard doesn't have a physically separate keypad for 10 key.  Pressing this, turns the keys on the rightmost side of the keyboard into a
+10 key. So key *u* on a qwerty version of the Advantage II keyboard becomes *7*, and so forth.
 
-### Keypad layer to emacs command mapping
+I use the keypad layer to store programmable macros to keys and key combinations inside the keyboard map. I just avoid overlaying the right-side keys (in-case I
+ever want to 10-key). This means the keybindings don't interfere with other normal uses of the keyboard.
+
+The default macros I have stored and bound to the keypad layer run complex chorded *emacs* commands that I don't like remembering or typing
+over-and-over. A list of these macros and their new keypad layer bindings follows in the next section.
+
+The *kp* prefix that I use below indicates that we must be in the keypad layer and then press the key combination. *kp-a* means pressing the *a* key when in
+keypad mode.  You can do this by pressing *keypd* to lock the keypad layer, pressing the *a* key-- and then pressing the *keypd* key again to exit the keypad
+layer.
+
+So far, that is not much more efficient than just using the complex long chorded *emacs* command. So why bother?
+
+Well, I use a foot pedal to toggle turning the keypad layer on and off (like the shift key does for the shift layer).
+
+So when I press and hold the footpedal and hit the c key (*kp-c*) the keyboard runs an internal macro that I have programmed. This causes it to "type": *Cntl-c p
+c*. This is the command used in *emacs* projectile mode to compile a project.
+
+Of course, this won't work if you don't first program the macros into your keyboard. Here are the macros I have programmed into mine and what they do:
+
+## Keypad layer to emacs command mapping
 | Keypad Command | command | emacs keybinding (if bound) |
 | -------------  |-------------| -----|
 | **Cursor movement keys** |   |  |
 | *kp-a* | beginning-of-defun      | C-M-a |
 | *kp-e* | end-of-defun            | C-M-e |
-| *kp-LAltf-Space*  |  mark-defun  | C-M-h |
+| *kp-LAlt-Space*  |  mark-defun  | C-M-h |
 | *kp-f*  | forward-sexp     | C-M-f |
 | *kp-b*  | backward-sexp    | C-M-b |
 | *kp-LCtrl-Space* | mark-sexp     | C-M-<SPC> |
@@ -140,7 +212,7 @@ c*. This is the command to compile a project.
 | **Projectile commands** | | |
 | *kp-c* | projectile-compile-project |  C-c p c |
 | *kp-t* | projectile-compile-test      |  C-c p P |
-| *kp-g* | Grep in projectile           | C-c p g s |
+| *kp-g* | grep in projectile project   | C-c p g s |
 | *kp-r* | Simple refactoring with text replace in current project | C-c p r |
 | *kp-LShift-f* | Jump to any file in the project | C-c p f |
 | *kp-LShift-d* | Jump to any directory in the project | C-c p d |
@@ -162,7 +234,10 @@ c*. This is the command to compile a project.
 | **sr-speedbar** |    |    |
 | *kp-q* | sr-speedbar-toggle |  |
 
-## Actual commands to store keybindings to keyboard in programming mode
+## Raw keybindings
+
+Below are the raw commands that are saved to a text file on a usb drive and then loaded into the keyboard to program the above macros (read owner's manual to
+see how to do this).
 
 ```
 [rwin]>[ralt]
