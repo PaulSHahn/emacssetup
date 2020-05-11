@@ -1,6 +1,10 @@
 (setq-default fill-column 160)
 
-(global-whitespace-cleanup-mode)
+;; uncomment this and comment out ws-butler if you
+;; really want to nuke the entire file and get rid
+;; of all whitespace errors in it. This will bloat
+;; your files commit size.
+;;(global-whitespace-cleanup-mode)
 
 (setq global-mark-ring-max 5000;
       mark-ring-max 5000;
@@ -56,6 +60,7 @@
   :init
   (add-hook 'prog-mode-hook 'yas-minor-mode))
 
+;; comment this out if you turn on global-whitespace-cleanup-mode
 (use-package ws-butler
   :init
   (add-hook 'prog-mode-hook 'ws-butler-mode)

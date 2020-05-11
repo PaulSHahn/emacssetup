@@ -1,6 +1,6 @@
 # emacssetup
 
-Emacs setup tailored for the Python and Javascript development we will be doing at *NPC*. Currently, the master branch contains setting intended for *emacs*
+Emacs setup tailored for the Python and Javascript development we will be doing at *NPC*. Currently, the master branch contains settings intended for *emacs*
 major version 26.
 
 # Emacs setup notes
@@ -135,7 +135,7 @@ Advanced Completion engine. This extends and replaces the default tab completion
 
 ## elpy
 
-This package provides advanced Pythong specific IDE abilities and greatly enhances Python programming.
+This package provides advanced Python specific IDE abilities and greatly enhances the Python programming experience inside *emacs*.
 
 <https://elpy.readthedocs.io/en/latest/introduction.html>
 
@@ -151,9 +151,29 @@ Provides the ability to edit markdown files and see the output of files edited.
 
 <https://www.emacswiki.org/emacs/MarkdownMode>
 
+## whitespace ws-butler or whitespace-cleanup-mode
+
+I have two different ways to get rid of whitespace.
+
+1. **ws-bulter:** The default. This is a gentler program that only cleans up whitespace in the area you have modified. Everyone else's strange whitespacing is
+   left alone. This is the default enabled in most editing and programming modes.
+
+2. **whitespace-cleanup-mode:** This nukes all erroneous whitespace in the file everytime you save to disk. It is not on by default, but just installed.
+
+Which one to use?
+
+If you are working on legacy code with others, you may want to use *ws-butler*. Otherwise, if you use whitespace-cleanup-mode you will have huge commit sizes
+that have nothing to do with your change, since you will have reformatted the entire file every-time you save. If you are on greenfield development it should not
+matter-- ws-bulter will keep you safe to begin with. If you are refactoring or cleaning up code, then whitespace-cleanup-mode may be a better choice.
+
+You can manually start whitespace-cleanup-mode on any buffer via *M-x whitespace-cleanup-mode*. You can set it up to be always on instead of ws-bulter by
+editing *~/emacs.d/custom/setup-editing.el* and removing the lines commenting out global-whitespace-cleanup-mode. You should also comment out ws-butler at the
+same time (since you really only need one running at a time).
+
+
 ## tide & javascript
 
-fixme, add links and stuff when the Javascript setup for this is finalized (probably not until emacs 27).
+**fixme** Add links and stuff when the Javascript setup for this is finalized (probably not until emacs 27).
 
 # Kenesis Advantage II emacs setup
 
