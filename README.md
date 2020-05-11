@@ -13,54 +13,35 @@ Many other resources are available as well. Some quality ones:
 * <https://www.emacswiki.org/>
 * <http://ergoemacs.org/>
 
-Again, if you don't know *emacs*, please read the GNU manual and go through the basic exercises attempting to use this setup.
+Again, if you don't know *emacs*, please read the GNU manual and go through the basic exercises before attempting to use this setup.
 
 # Using this repository
 
 *So what do you do with this repo?*
 
-Well, I clone it to my *emacs* settings directory at: *~/.emacs.d*. I do this on all the machines that I use:
+* First, you should fork or use github templates to copy this repository into your own github account.
 
-```bash
-# goto home directory
-cd ~/
-# move your old emacs settings, if any-- out of the way
-mv ~/.emacs.d ~/.emacs.d.old
-# clone your new settings directory
-git clone git@github.com:PaulSHahn2/emacssetup.git ~/.emacs.d/
-```
+  See: <https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template>
 
-This allows me to have one setup for all instances of *emacs* and to keep that setup synchronized.
+* Next, you should clone your repository to every machine where you use *emacs*. Clone it to your *emacs* settings directory at: *~/.emacs.d*:
 
-If you wish to reuse this, you should probably either *fork* this repository to your github home, or use the github template feature to create a new repository
-containing this ones' latest and greatest contents.
+    ```bash
+    # goto home directory
+    cd ~/
+    # move your old emacs settings, if any-- out of the way
+    mv ~/.emacs.d ~/.emacs.d.old
+    # clone your new settings directory
+    git clone git@github.com:YOURGITHUBUSERHERE/emacssetup.git ~/.emacs.d/
+    ```
 
-When you are done with that, then you can clone and modify your new repository to meet your needs.
+    This allows you to have one setup for all instances of *emacs* and to keep that setup synchronized.
 
-# Building
+* Last, modify your *emacs* settings to meet your needs and save your changes.
 
-Below are some quick instructions on building your own *emacs*, in case you need or want to.
-
-## Building emacs 26 On Ubuntu LTS:
-
-```bash
-# add sources repos in /etc/apt/sources.list by uncommenting srcs repositories matching the binary equivalents.
-sudo apt-get update
-sudo apt-get build-dep emacs25 # or most recent version available.
-sudo apt-get install libgtk-3-dev libwebkit2gtk-4.0-dev
-# change the prefix to be whereever you wish. Your local home directory if you want.
-./configure --with-modules --with-cairo --with-xwidgets --with-x-toolkit=gtk3 --prefix=/opt/npc --exec-prefix=/opt/npc
-make -j
-sudo mkdir /opt/npc
-sudo chmod 755 /opt/npc
-sudo make install prefix=/opt/npc exec-prefix=/opt/npc
-```
-
-**FIXME:** add SuSE and RHEL/CentOS build instructions
 
 # Finish setup of your emacs after cloning
 
-1. On your first startup after cloning, you will get errors that show in the terminal window. This is because the settings you have cloned from *git* reference
+1. When you first start *emacs* after cloning, you will get errors that show in the terminal window. This is because the settings you have cloned from *git* reference
    packages that have not yet been installed. Let's install them locally to your home *.emacs.d* directory:
 
 2. Start *emacs*, then list your installed packages:
@@ -99,17 +80,19 @@ alias e="${VISUAL}"
 ```
 
 I like to run *emacs* in daemon mode (as a server). This is a better way to run *emacs* on modern systems, since it shares resources with other windowed
-instances of *emacs* and they are aware of what each other is doing.
+instances of *emacs*. This allows each client instance to integrate with the others, instead of having single instances that can clober over the same files.
 
 By default, *emacsclient* starts a new client that connects to the existing emacs daemon running in the background. The "--alternate-editor=" syntax is awkward,
  but it essentially means start up a new *emacs* daemon if the client could not connect to an existing one. If you put an argument after the *=*, it would
  instead startup some other editor that you specified as a backup option.
 
-Remember that the *VISUAL* variable is reserved for editors running in *X* or *wayland* and *EDITOR* is reserved for editors running inside a terminal. We pass
-*-t* to run a terminal version when EDITOR is called by the OS or some other running program. This starts a new *emacs* client inside the terminal.
+At this point, I use the *VISUAL* variable for editors running in *X* or *wayland* and *EDITOR* for editors running inside a terminal. This is not really what
+they were originally intended for, but that usage is largely archaic anyway (unless you have a 300 buad modem and a printer instead of a display screen).
 
-When we are running in a visual environment, we create a new window (*frame* in emacs-speak) via *-c*. Without this, *emacs* would try and find an existing
-window and change the contents of that window. I prefer to have a new window (er... frame) for everything I explicitly open.
+I pass *-t* to run a terminal version when EDITOR is called by the OS or some other running program. This starts a new *emacs* client inside the terminal.
+
+When *VISUAL* is used I create a new window (*frame* in emacs-speak) via *-c*. Without this, *emacs* would try and find an existing window and change the
+contents of that window. I prefer to have a new window (er... frame) for everything I explicitly open.
 
 Note that these commands and options are specific to recent versions of *emacs*. Older versions of *emacs* and *emacsclient* take different options and
 *emacsclient* has a different name or doesn't exist at all on really old versions of *emacs*.
@@ -174,6 +157,27 @@ same time (since you really only need one running at a time).
 ## tide & javascript
 
 **fixme** Add links and stuff when the Javascript setup for this is finalized (probably not until emacs 27).
+
+# Building emacs
+
+Below are some quick instructions on building your own *emacs*, in case you need or want to.
+
+## Building emacs 26 On Ubuntu LTS:
+
+```bash
+# add sources repos in /etc/apt/sources.list by uncommenting srcs repositories matching the binary equivalents.
+sudo apt-get update
+sudo apt-get build-dep emacs25 # or most recent version available.
+sudo apt-get install libgtk-3-dev libwebkit2gtk-4.0-dev
+# change the prefix to be whereever you wish. Your local home directory if you want.
+./configure --with-modules --with-cairo --with-xwidgets --with-x-toolkit=gtk3 --prefix=/opt/npc --exec-prefix=/opt/npc
+make -j
+sudo mkdir /opt/npc
+sudo chmod 755 /opt/npc
+sudo make install prefix=/opt/npc exec-prefix=/opt/npc
+```
+
+**FIXME:** add SuSE and RHEL/CentOS build instructions
 
 # Kenesis Advantage II emacs setup
 
