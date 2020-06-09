@@ -1,3 +1,4 @@
+(setq python-indent-offset 4)
 
 (use-package elpy
   :ensure t
