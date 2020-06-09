@@ -1,3 +1,8 @@
+;;; initfile --- Summary:
+;;; Commentary:
+;; Emacs 26 and newer
+;;; Code:
+
 (use-package helm
   :init
   (progn
@@ -132,12 +137,6 @@
       (setq helm-swoop-speed-or-color t))
 
     (helm-mode 1)
-
-    (use-package helm-projectile
-      :init
-      (helm-projectile-on)
-      (setq projectile-completion-system 'helm)
-      (setq projectile-indexing-method 'alien))))
-
+    ))
 
 (provide 'setup-helm)

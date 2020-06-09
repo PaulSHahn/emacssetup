@@ -1,3 +1,7 @@
+;;; initfile --- Summary:
+;;; Commentary:
+;; Emacs 26 and newer
+;;; Code:
 
 (defun setup-tide-mode ()
   "Setup function for tide."
@@ -23,5 +27,10 @@
                          "--jsx-single-quote" "true"
                          "--jsx-bracket-same-line" "true"
                          "--print-width" "100"))
+
+;; json-mode
+(use-package json-mode
+  :ensure t
+  :mode ("\\.json\\'" "\\.imp\\'"))
 
 (provide 'setup-javascript)
