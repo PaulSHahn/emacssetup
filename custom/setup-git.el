@@ -23,10 +23,10 @@
   :config
   ;; If you enable global minor mode
   (global-git-gutter-mode t)
-  ;; Auto update every 5 seconds
-  (custom-set-variables
-   '(git-gutter:update-interval 10))
   )
+
+;; Auto update every 5 seconds
+(setq git-gutter:update-interval 10)
 
 ;; use git-timemachine to navigate between file versions
 (use-package git-timemachine

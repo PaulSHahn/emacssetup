@@ -3,9 +3,20 @@
 ;; Emacs 26 and newer
 ;;; Code:
 
-;; Don't use CEDET. It is bloated & slow.
+;; NOTE: Don't use CEDET or semantic. They are in lisp and thus bloated & slow.
 
 ;; Use universal ctags instead of rtags
+
+;; ccls lsp server provides data for C/C++/Objective C via clang
+;; You must have ccls & clang installed.
+(use-package ccls
+  :ensure t
+  :config
+  (setq ccls-executable "ccls")
+  (setq lsp-prefer-flymake nil)
+  (setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-cppcheck c/c++-gcc))
+  :hook ((c-mode c++-mode objc-mode) .
+         (lambda () (require 'ccls) (lsp))))
 
 ;; hs-minor-mode for folding source code
 (add-hook 'c-mode-common-hook 'hs-minor-mode)

@@ -16,6 +16,8 @@ C++ setup resources:
 
 * <http://tuhdo.github.io/c-ide.html>
 * <https://nilsdeppe.com/posts/emacs-c++-ide2>
+* <https://www.sandeepnambiar.com/setting-up-emacs-for-c++/>
+* <https://trivialfis.github.io/emacs/2017/08/02/C-C++-Development-Environment-on-Emacs.html>
 
 Some of the C++ setup has been taken from these sources and modified for my specific use.
 
@@ -30,6 +32,12 @@ Spacemacs is geared to *emacs* beginners with *vi/vim* experience:
 Doom-emacs is geared to more experienced power users who want a leaner experience than spacemacs:
 
 * <https://github.com/hlissner/doom-emacs>
+
+Prelude is a distribution of *emacs* geared towards simplicity and
+reliability. It is more conservative and closer to *emacs*, but with packages
+setup to work in most languages:
+
+* <https://prelude.emacsredux.com/en/latest>
 
 # Using this repository
 
@@ -94,7 +102,7 @@ If you don't need a portion of this setup, simply remove the setup-{item).el fil
 
 # Packages installed with this setup
 
- Packages included in this setup:
+There are so many options and packages to configure an *emacs* setup. It is dizzying nowadays. Below I describe the packages currently used in this setup and where you can go to get more information about them.
 
 ## company & company-box
 **company** is a text auto-completion framework for *emacs*. *company* provides a pluggable search framework for auto-complete results. See: <https://company-mode.github.io/>.
@@ -176,9 +184,17 @@ Provides the ability to edit markdown files and see the output of files edited. 
 
 Provides spell-checking as you go. See: <https://github.com/d12frosted/flyspell-correct>.
 
-## lsp-mode, lsp-ui, company-lsp
+## lsp-mode, lsp-ui, company-lsp & ccls
 
-Language server protocol support for *emacs*. This allows code completion and syntax highlighting for multiple programming languages. Unlike other tagging solutions, this one scales well and is relatively fast. Lets us integrate with third-party services, servers and interfaces to investigate our code.  See: <https://github.com/emacs-lsp/lsp-mode>
+**lsp-mode** enables the language server protocol support for *emacs*. This allows code completion and syntax highlighting for multiple programming languages. Unlike other tagging solutions, this one scales well and is relatively fast. It lets us integrate with third-party services, servers and interfaces to investigate our code.  See: <https://github.com/emacs-lsp/lsp-mode>.
+
+**lsp-ui** Part of lsp-mode. Contains ui features to display results. See: <https://github.com/emacs-lsp/lsp-ui>
+
+**company-lsp** Integrates lsp mode with *company*.
+
+**ccls** is an emacs mode that runs the ccls server (you must have this installed along with clang). This provides lsp data for C/C++ & Objective C. See: <https://github.com/MaskRay/emacs-ccls>.
+
+
 
 ## magit
 
@@ -231,6 +247,13 @@ When *VISUAL* is used, we create a new X window (actually, a *frame* in *emacs* 
 
 Note that these commands and options are specific to recent versions of *emacs*. Older versions of *emacs* and *emacsclient* take different options. Older versions of *emacs* don't even have an *emacsclient*, and some older versions give it a different name.
 
+## clang setup
+
+In order to use C++ features of ccls and lsp-mode, you will need to have *clang* and *ccls* installed. You can do this in Ubuntu/Debian distributions by installing packages *clang* and *ccls*:
+
+```bash
+sudo apt-get install clang ccls
+```
 ## Systemd integration
 
 You may take your setup one step further and have your emacs daemon managed by systemd, so that it starts up automatically when the machine starts. Instructions to do so are here: <https://nilsdeppe.com/posts/emacs-c++-ide2>. I don't do this as it seems overkill for my use case.

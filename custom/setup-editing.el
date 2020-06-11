@@ -23,60 +23,22 @@
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 
+;; tabs are evil, shut this off
 (setq-default indent-tabs-mode nil)
+
+;; when text is selected, you may type to delete and replace it.
 (delete-selection-mode)
+
+;; return not only goes to the next line, but indents according to major mode rules
 (global-set-key (kbd "RET") 'newline-and-indent)
 
+;; make the kill ring large, delete until end of line line on c-S-backspace
 (setq kill-ring-max 5000;
       kill-whole-line t;
       )
 
 ;; Bind global indent of the buffer or region
 (global-set-key (kbd "C-c i") 'indent-region-or-buffer)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Shell Scripting Support
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; default shell scripting hook width 4
-(add-hook 'sh-mode-hook (lambda()
-                          (setq tab-width 3)))
-
-;; if a shell script, then save as executable
-(add-hook 'after-save-hook #'executable-make-buffer-file-executable-if-script-p)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Package: projectile and helm projectile
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; projectile recognizes various types of development projects, such as Maven, automake, cmake, etc.
-(use-package projectile
-  :init
-  (projectile-global-mode)
-  :config
-  (setq projectile-enable-caching t)
-  (setq projectile-completion-system 'helm)
-  )
-
-(use-package helm-projectile
-  :init
-  (helm-projectile-on)
-  (setq projectile-completion-system 'helm)
-  (setq projectile-indexing-method 'alien))
-
-;; Make projectile aware of CPP Bazel projects.
-(projectile-register-project-type
- 'bazel '("WORKSPACE")
- :compile "bazel build --verbose_failures --compilation_mode=dbg -s //..."
- :test "bazel test --test_output=all //..."
- :run "bazel run"
- :test-suffix ".test")
-
-;; Make projectile aware of qmake project files FIXME: some pro files are qmake, figure this out.
-(projectile-register-project-type 'qmake '("Xsaitekpanels.pro")
-                                  :compile "make -j"
-                                  :test "make text"
-                                  :configure "qmake -spec linux-g++")
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -149,39 +111,6 @@
   :bind (("C-;" . iedit-mode))
   :init
   (setq iedit-toggle-key-default nil))
-
-;;;;;;;;;;;;;;;;;;;
-;; markdown support
-;;;;;;;;;;;;;;;;;;;;
-(use-package markdown-mode
-  :ensure t
-  :mode ("\\.md'" "\\.markdown\\'")
-  )
-
-;; custom markdown pandoc settings
-(custom-set-variables
- '(markdown-command
-   (concat "/usr/bin/pandoc"
-           " --from=markdown --to=html"
-           " --standalone -S --mathjax --highlight-style=tango") ) )
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Spell Checking
-;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; flyspell
-(use-package flyspell
-  :ensure t
-  :hook ((text-mode . flyspell-mode)
-         (prog-mode . flyspell-prog-mode)
-         (org-mode . flyspell-mode))
-  )
-
-(use-package flyspell-correct
-  :after flyspell
-  :bind (:map flyspell-mode-map ("C-;" . flyspell-correct-wrapper)))
-
-(use-package flyspell-correct-helm
-  :after flyspell-correct)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Generic code completion

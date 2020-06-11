@@ -8,3 +8,5 @@ snippets
 transient
 .markdown-preview.html
 custom/bazel-mode.el
+.lsp-session-v1
+projectile.cache

@@ -3,10 +3,13 @@
 ;; Emacs 26 and newer
 ;;; Code:
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; General display variables and options
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; maximize on start
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
 ;; enable line number and column number
 (setq column-number-mode t)
 (setq line-number-mode t)
