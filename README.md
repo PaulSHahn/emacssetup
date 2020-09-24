@@ -112,7 +112,7 @@ There are so many options and packages to configure an *emacs* setup. It is dizz
 
 ## async
 
-**async** supports running code asyncronously, which lets elisp cooperatively run more than one thing at a time without blocking on I/O, similar to Node.js or Python asyncio. See: <https://github.com/jwiegley/emacs-async>.
+**async** supports running code asyncronously, which lets elisp cooperatively switch between running processes whenever a process blocks on I/O, similar to Node.js or Python asyncio. See: <https://github.com/jwiegley/emacs-async>.
 
 ## window-numbering
 
@@ -194,6 +194,11 @@ Provides spell-checking as you go. See: <https://github.com/d12frosted/flyspell-
 
 **ccls** is an emacs mode that runs the ccls server (you must have this installed along with clang). This provides lsp data for C/C++ & Objective C. See: <https://github.com/MaskRay/emacs-ccls>.
 
+If you want to use lsp-mode with Python, you will need a python language back-end, such as the python-language-server. You can install the python language server in your python environment with pip:
+
+```bash
+pip install python-language-server
+```
 
 
 ## magit
@@ -215,6 +220,7 @@ This package provides advanced Python specific IDE abilities and greatly enhance
 ## py-autopep8
 
 Enforces compliance with the Python Pep-8 coding standards. See: <http://paetzke.me/project/py-autopep8.el>.
+
 
 ## tide
 
