@@ -1,6 +1,6 @@
 # emacssetup, my ~/.emacs.d setup
 
-This sets up GNU *emacs*. This setup is tailored for Python, C++ and Javascript development. Currently, the master branch contains settings intended for GNU *emacs* major version 26.
+This sets up GNU *emacs*. This setup is tailored for Python, C++ and Javascript development. Currently, the master branch contains settings intended for GNU *emacs* major version 27.
 
 # emacs Tutorials & Resources
 
@@ -299,14 +299,12 @@ Sometimes, the distributions version of *emacs* is not up to par. Below are my b
 ```bash
 # add sources repos in /etc/apt/sources.list by uncommenting srcs repositories matching the binary equivalents.
 sudo apt-get update
-sudo apt-get build-dep emacs25 # or most recent version available.
-sudo apt-get install libgtk-3-dev libwebkit2gtk-4.0-dev
+sudo apt-get build-dep emacs
+sudo apt-get install libgtk-3-dev libwebkit2gtk-4.0-dev libjansson-dev libjansson4
 # change the prefix to be whereever you wish. Your local home directory if you want.
-./configure --with-modules --with-cairo --with-xwidgets --with-x-toolkit=gtk3 --prefix=/opt/paul --exec-prefix=/opt/paul
+./configure --with-modules --with-cairo --with-xwidgets --with-x-toolkit=gtk3 --with-mailutils --with-imagemagick --prefix=/usr/local
 make -j
-sudo mkdir /opt/paul
-sudo chmod 755 /opt/paul
-sudo make install prefix=/opt/paul exec-prefix=/opt/paul
+sudo make install prefix=/usr/local
 ```
 
 **FIXME:** Add RHEL/CentOS 7 build instructions
