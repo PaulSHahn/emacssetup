@@ -77,15 +77,14 @@
   :ensure t
   :diminish company-mode
   :config
-  (setq company-idle-delay 0)
   :init
   (global-company-mode 1)
   (delete 'company-semantic company-backends))
 
 ;; Add icons to code completion when using the GUI client.
-(use-package company-box
-  :ensure t
-  :hook (company-mode . company-box-mode))
+;; (use-package company-box
+;;   :ensure t
+;;   :hook (company-mode . company-box-mode))
 
 ;; byte compile init setup for faster startup.
 (defvar my:byte-compile-init t)

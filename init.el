@@ -19,7 +19,7 @@
  '(c-noise-macro-names (quote ("constexpr")))
  '(package-selected-packages
    (quote
-    (helm-apt cmake-font-lock ccls bazel-mode git-timemachine flyspell-correct-helm modern-cpp-font-lock projectile-sift magit magithub git-gutter whitespace-cleanup-mode prettier-js tide js2-mode json-mode pycoverage projectile anzu helm helm-swoop helm-projectile company company-box helm-company iedit markdown-mode markdown-mode+ markdown-preview-mode sr-speedbar use-package volatile-highlights ws-butler undo-tree py-autopep8 elpy flycheck flycheck-coverity flycheck-tip flycheck-yamllint flymake-yaml yaml-mode lsp-mode lsp-ui moder-cpp-font-lock company-lsp window-numbering py-yapf yapfify cmake-mode))))
+    (helm-apt cmake-font-lock ccls bazel-mode git-timemachine flyspell-correct-helm modern-cpp-font-lock projectile-sift magit magithub git-gutter whitespace-cleanup-mode prettier-js tide js2-mode json-mode pycoverage projectile anzu helm helm-swoop helm-projectile company company-box helm-company iedit markdown-mode markdown-mode+ markdown-preview-mode sr-speedbar use-package volatile-highlights ws-butler undo-tree py-autopep8 elpy flycheck flycheck-coverity flycheck-tip flycheck-yamllint flymake-yaml yaml-mode lsp-mode lsp-ui moder-cpp-font-lock window-numbering py-yapf yapfify cmake-mode))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

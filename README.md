@@ -21,6 +21,11 @@ C++ setup resources:
 
 Some of the C++ setup has been taken from these sources and modified for my specific use.
 
+Python setup resources:
+
+* <https://elpy.readthedocs.io/>
+
+
 ## Alternative emacs forks & distributions
 
 There are modified distributions of *emacs* that are more cookie-cutter. You may wish to try them, but they won't work with this setup, since they provide their own pre-rolled packages and settings.
@@ -190,11 +195,9 @@ Provides spell-checking as you go. See: <https://github.com/d12frosted/flyspell-
 
 **lsp-ui** Part of lsp-mode. Contains ui features to display results. See: <https://github.com/emacs-lsp/lsp-ui>
 
-**company-lsp** Integrates lsp mode with *company*.
-
 **ccls** is an emacs mode that runs the ccls server (you must have this installed along with clang). This provides lsp data for C/C++ & Objective C. See: <https://github.com/MaskRay/emacs-ccls>.
 
-If you want to use lsp-mode with Python, you will need a python language back-end, such as the python-language-server. You can install the python language server in your python environment with pip:
+If you want to use lsp-mode with Python, you will need a python language back-end, such as the python-language-server. You can install this in your python environment with pip:
 
 ```bash
 pip install python-language-server
@@ -217,10 +220,33 @@ Lets us navigate and interactively view the versions of a git controlled file. S
 
 This package provides advanced Python specific IDE abilities and greatly enhances the Python programming experience inside *emacs*. See: <https://elpy.readthedocs.io/en/latest/introduction.html>
 
-## py-autopep8
+### py-autopep8, yapf, jedi, rope, black, flake8
 
-Enforces compliance with the Python Pep-8 coding standards. See: <http://paetzke.me/project/py-autopep8.el>.
+This helps elpy enforce compliance with the Python Pep-8 coding standards. See: <http://paetzke.me/project/py-autopep8.el>.
+This will underline in red all non-compliant code.
 
+To install all python packages needed by Elpy:
+
+```bash
+pip install autopep8 jedi rope yapf black flake8 pydocstyle
+```
+Sometimes, you may want to override some pep8 style settings, such as the default line length being set to only 80 characters. 
+To do this, edit *$HOME/.config/pycodestyle* and add the appropriate ini-file style configuration settings. Such as:
+
+```
+[pycodestyle]
+max_line_length = 120
+ignore = E501
+```
+
+To make sure elpy is running correctly, *M-X elpy-config*. Note any *warnings* or missing packages and install them.
+
+If you are using a dedicated virtual environment per project, elpy may warn
+about *~/.local/bin* not being in the PATH. You will have to modify your PATH
+variable before starting emacs, or stop running emacs from the virtual
+environment. To do so, add a line like the following to your *~/.bashrc*:
+
+export PATH="$PATH:$HOME/.local/bin"
 
 ## tide
 

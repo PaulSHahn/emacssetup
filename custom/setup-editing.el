@@ -90,12 +90,12 @@
   (global-undo-tree-mode 1))
 
 ;; An abbreviation template system for emacs. Type an abbreviation and it expands it.
+
 (use-package yasnippet
   :defer t
   :init
   (add-hook 'prog-mode-hook 'yas-minor-mode)
   (setq lsp-enable-snippet t)
-  (setq company-lsp-enable-snippet 1)
    )
 
 ;; A minor mode which displays current match and total matches in the mode line
@@ -154,14 +154,6 @@
     (add-hook 'shell-mode-hook 'set-local-keybinds-lsp-ui)
     )
 
-  (use-package company-lsp
-    :ensure t
-    :diminish
-    :after (company lsp-mode)
-    :init
-    (defvar company-lsp-enable-recompletion t)
-    (defvar company-lsp-async t)
-    :config (add-to-list 'company-backends 'company-lsp))
 
   ;; Use as C++ completer if desired. We use the clangd backend
   (add-hook 'c-mode-common-hook 'lsp-mode)
