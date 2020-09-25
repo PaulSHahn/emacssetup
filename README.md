@@ -1,56 +1,16 @@
-# emacssetup, my ~/.emacs.d setup
+# My ~/.emacs.d setup
 
-This sets up GNU *emacs*. This setup is tailored for Python, C++ and Javascript development. Currently, the master branch contains settings intended for GNU *emacs* major version 26.
-
-# emacs Tutorials & Resources
-
-If you are new to *emacs* you may want to read some tutorials before copying someones setup. I would start by reading the GNU info manual for *emacs*. You can do this on your local machine using the *info* command, or online here: <https://www.gnu.org/software/emacs/manual/>.
-
-Many other resources are available as well. Some resources that I use:
-
-* <https://www.emacswiki.org/>
-* <http://ergoemacs.org/>
-* <https://www.reddit.com/r/emacs/>
-
-C++ setup resources:
-
-* <http://tuhdo.github.io/c-ide.html>
-* <https://nilsdeppe.com/posts/emacs-c++-ide2>
-* <https://www.sandeepnambiar.com/setting-up-emacs-for-c++/>
-* <https://trivialfis.github.io/emacs/2017/08/02/C-C++-Development-Environment-on-Emacs.html>
-
-Some of the C++ setup has been taken from these sources and modified for my specific use.
-
-Python setup resources:
-
-* <https://elpy.readthedocs.io/>
-
-
-## Alternative emacs forks & distributions
-
-There are modified distributions of *emacs* that are more cookie-cutter. You may wish to try them, but they won't work with this setup, since they provide their own pre-rolled packages and settings.
-
-Spacemacs is geared to *emacs* beginners with *vi/vim* experience:
-
-* <https://www.spacemacs.org/>
-
-Doom-emacs is geared to more experienced power users who want a leaner experience than spacemacs:
-
-* <https://github.com/hlissner/doom-emacs>
-
-Prelude is a distribution of *emacs* geared towards simplicity and
-reliability. It is more conservative and closer to *emacs*, but with packages
-setup to work in most languages:
-
-* <https://prelude.emacsredux.com/en/latest>
+This is my configuration for GNU *emacs* and related usage notes. This setup is tailored for Python, C++ and some Javascript development. Currently, the master branch contains settings intended for GNU *emacs* major version 27.
 
 # Using this repository
 
-*So what do I do with this repo?*
+*So what can I do with this repo?*
 
-1. You should fork this repository into your own github account. To fork this repository, see: <https://help.github.com/en/github/getting-started-with-github/fork-a-repo>. Optionally, you may want to create a template from that forked repository that everyone in your organization can use, see: <https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template>.
+If you want to setup *emacs* for C, C++, Python, or Javascript development, you can start with this setup. Then you can then continue to configure it to meet your needs as you go. To do this:
 
-2. Next, you should clone your new repository to every machine where you use *emacs*. When you clone it, clone it to your *emacs* settings directory. On Linux, this is in your home directory at: *~/.emacs.d*:
+1. Fork this repository into your own github account. To fork this repository, see: <https://help.github.com/en/github/getting-started-with-github/fork-a-repo>. Optionally, you may want to create a template from that forked repository that everyone in your organization can use, see: <https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template>.
+
+2. Next, you should clone your new repository to every machine where you use *emacs*. When you clone it, clone it to your *emacs.d* settings directory. On Linux, this is in your home directory at: *~/.emacs.d*:
 
     ```bash
     # goto home directory
@@ -60,10 +20,10 @@ setup to work in most languages:
     # clone your new settings directory
     git clone git@github.com:YOURGITHUBUSERHERE/emacssetup.git ~/.emacs.d/
     ```
-    This allows you to have one setup for all machines that run *emacs*, and to keep that setup as synchronized as possible.
+    This allows you to have one setup for all machines that run a compatible version of *emacs*, and to keep that setup synchronized.
 
-3. Start emacs.
-    
+3. Start *emacs*.
+
     ```bash
     $ emacs
     ```
@@ -75,7 +35,7 @@ setup to work in most languages:
 
     Note that it may appear that *emacs* has hung when you run *M-x package-install-selected-packages*. You may see a message in the mini-buffer that states: *"Contacting Melpa..."*. You are especially likely to see this if you have a slow connection. *emacs* probably isn't hung, but just busy. If you look in directory *~/.emacs.d/elpha/*, you will see that packages are appearing as they are downloaded. If you restart *emacs* before it finishes downloading a large package-- then it will loose track of the current package and you will just end up having to download it again later.
 
-4. When all packages are installed, exit *emacs* and restart it. If you are running *emacs* in *daemon mode*, kill the dameon: `killall emacs` and then restart it. You should no longer see startup errors in the terminal.
+5. When all packages are installed, exit *emacs* and restart it. If you are running *emacs* in *daemon mode*, kill the dameon: `killall emacs` and then restart. You should no longer see startup errors in the terminal.
 
 ## Using your settings across multiple machines
 
@@ -85,11 +45,11 @@ A good example of this would be creating a branch for each major version of *ema
 
 ## Committing Changes
 
-*Don't forget to commit and push your changes back to your forked repository.*
+*Don't forget to commit and push your changes back to your repository.*
 
-Note that *emacs* can interactively change the contents of your *~/emacs.d/init.el* file as it saves updates you have requested. *emacs* does this when you use drop-down menu options to change settings or when you install new packages. You should make sure you are done making such changes before you attempt to commit your changes with git. To commit changes, you can either use *git* on the command line, or you can use *magit* inside *emacs*. *magit* is a powerful *emacs* integration layer that is worth learning, and basic usage is fairy intuitive. 
+Note that *emacs* can interactively change the contents of your *~/emacs.d/init.el* file as it saves updates you have requested. *emacs* does this when you use drop-down menu options to change settings or when you install new packages. You should make sure you are done making such changes before you attempt to commit your changes with git. To commit changes, you can either use *git* on the command line, or you can use *magit* inside *emacs*. *magit* is a powerful *emacs* integration layer that is worth learning, and basic usage is fairy intuitive.
 
-# Configuration & Setup File Organization
+# Layout
 
 The *emacs.d* directory has several setup files. At the top level, the *init.el* file contains only the most generic of *emacs* settings. In our setup, it's main purpose is to require other settings files, which live under the *custom* subdirectory. This lets us break out portions of setup code into bite-sized and purpose specific pieces, instead of having everything inside one large file.
 
@@ -105,19 +65,20 @@ The following list shows each settings file and a brief description of what it d
 
 If you don't need a portion of this setup, simply remove the setup-{item).el file and remove its require statement from the *init.el* file. You should also add your own stuff. For example, to support another language such as Go you could add file: *setup-go.el*.
 
-# Packages installed with this setup
+# Packages installed
 
-There are so many options and packages to configure an *emacs* setup. It is dizzying nowadays. Below I describe the packages currently used in this setup and where you can go to get more information about them.
+There are many options and packages available in modern *emacs*. It is dizzying. Many compete with each other to do similar tasks, but in different ways. These packages will often conflict with each other. It is best to install and use one new thing at a time. Learn what it can do for you and make sure it is not causing any issues before installing the next package. It is a trial and error process.
+
+Below I describe the packages currently used in this setup and where you can go to get more information about them.
 
 ## company & company-box
 **company** is a text auto-completion framework for *emacs*. *company* provides a pluggable search framework for auto-complete results. See: <https://company-mode.github.io/>.
-
 
 **company-box** Extends company to support the display of icons in-line with text results. See: <https://github.com/sebastiencs/company-box>.
 
 ## async
 
-**async** supports running code asyncronously, which lets elisp cooperatively switch between running processes whenever a process blocks on I/O, similar to Node.js or Python asyncio. See: <https://github.com/jwiegley/emacs-async>.
+**async** supports running code asyncronously, which lets elisp cooperatively switch between running processes whenever a process blocks on I/O. This is similar to Node.js or Python asyncio. See: <https://github.com/jwiegley/emacs-async>.
 
 ## window-numbering
 
@@ -146,25 +107,25 @@ See: <https://docs.projectile.mx/en/latest/>
 
 I use two different packages that can get rid of bad white-space.
 
-1. **ws-bulter:** The default. This is a gentler program that only cleans up whitespace in the area you have modified. Everyone else's strange whitespacing is
+1. **ws-bulter:** The enabled default. This is a gentler program that only cleans up whitespace in the area you have modified. Everyone else's strange whitespacing is
    left alone. This is the default enabled in most editing and programming modes. See: <https://github.com/lewang/ws-butler>.
 
 2. **whitespace-cleanup-mode:** This nukes all erroneous whitespace in the file everytime you save to disk. It is not on by default, but just installed. See: <https://github.com/purcell/whitespace-cleanup-mode>.
 
 Which one to use?
 
-If you are working on legacy code with others, you may want to use *ws-butler*. Otherwise, if you use whitespace-cleanup-mode you will have huge commit sizes
+If you are working on legacy code with others, you should probably use *ws-butler*. Using *whitespace-cleanup-mode* will result in huge commit sizes
 that have nothing to do with your change. This occurs since you will have reformatted the entire file every-time you save. If you are on greenfield development
-it should not matter-- ws-bulter will keep you safe to begin with. If you are refactoring or cleaning up code, then whitespace-cleanup-mode may be a better
-choice.
+it should not matter as much-- *ws-bulter* will keep you safe to begin with. If you are refactoring or cleaning up code, then *whitespace-cleanup-mode* may be a better
+choice since it lets you aggressively fix bad whitespace.
 
-You can manually start whitespace-cleanup-mode on any buffer via *M-x whitespace-cleanup-mode*. You can set it up to be always on instead of ws-bulter by
-editing *~/emacs.d/custom/setup-editing.el* and removing the lines commenting out global-whitespace-cleanup-mode. You should also comment out ws-butler at the
-same time (since you really only need one running at a time).
+You can manually start *whitespace-cleanup-mode* on any buffer via *M-x whitespace-cleanup-mode*. You can set it up to be always on instead of *ws-bulter* by
+editing *~/emacs.d/custom/setup-editing.el* and removing the lines commenting out *global-whitespace-cleanup-mode*. You should also comment out *ws-butler* at the
+same time (you really only want one running at a time).
 
 ## volatile-highlights
 
-**volatile-highlights** briefly shows us text that has been altered or pasted in. The text will appear highlighted until the next keystroke. This provides a tiny bit more visual context to what we have done. See: <https://www.emacswiki.org/emacs/VolatileHighlights>. 
+**volatile-highlights** briefly shows us text that has been altered or pasted in. The text will appear highlighted until the next keystroke. This provides a tiny bit more visual context to what we have done. See: <https://www.emacswiki.org/emacs/VolatileHighlights>.
 
 ## undo-tree
 
@@ -189,7 +150,7 @@ Provides the ability to edit markdown files and see the output of files edited. 
 
 Provides spell-checking as you go. See: <https://github.com/d12frosted/flyspell-correct>.
 
-## lsp-mode, lsp-ui, company-lsp & ccls
+## lsp-mode, lsp-ui & ccls
 
 **lsp-mode** enables the language server protocol support for *emacs*. This allows code completion and syntax highlighting for multiple programming languages. Unlike other tagging solutions, this one scales well and is relatively fast. It lets us integrate with third-party services, servers and interfaces to investigate our code.  See: <https://github.com/emacs-lsp/lsp-mode>.
 
@@ -203,7 +164,6 @@ If you want to use lsp-mode with Python, you will need a python language back-en
 pip install python-language-server
 ```
 
-
 ## magit
 
 A full *git* layer for integration of git with emacs. This is very handy and very well done. See: <https://magit.vc/manual/magit/Getting-Started.html#Getting-Started>.
@@ -216,46 +176,50 @@ Keeps track of changes to our git version controlled files in a small "gutter" w
 
 Lets us navigate and interactively view the versions of a git controlled file. See: <https://github.com/emacsmirror/git-timemachine>.
 
-## elpy
+## Python support via elpy
 
 This package provides advanced Python specific IDE abilities and greatly enhances the Python programming experience inside *emacs*. See: <https://elpy.readthedocs.io/en/latest/introduction.html>
 
-### py-autopep8, yapf, jedi, rope, black, flake8
+### Python pip packages to install autopep8, yapf, jedi, rope, black, flake8
 
-This helps elpy enforce compliance with the Python Pep-8 coding standards. See: <http://paetzke.me/project/py-autopep8.el>.
-This will underline in red all non-compliant code.
+These pip packages provide features used by elpy.
+
+*autopep8* helps elpy enforce compliance with the Python Pep-8 coding standards by underlining in red all non-compliant code. See: <http://paetzke.me/project/py-autopep8.el>.
+*flake8* is the linter static analysis engine used by autopep8.
 
 To install all python packages needed by Elpy:
 
 ```bash
 pip install autopep8 jedi rope yapf black flake8 pydocstyle
 ```
-Sometimes, you may want to override some pep8 style settings, such as the default line length being set to only 80 characters. 
+
+Sometimes, you may want to override some pep8 style settings, such as the default line length being set to only allow 80 characters.
 To do this, edit *$HOME/.config/pycodestyle* and add the appropriate ini-file style configuration settings. Such as:
 
 ```
 [pycodestyle]
-max_line_length = 120
+max_line_length = 165
 ignore = E501
 ```
 
 To make sure elpy is running correctly, *M-X elpy-config*. Note any *warnings* or missing packages and install them.
 
 If you are using a dedicated virtual environment per project, elpy may warn
-about *~/.local/bin* not being in the PATH. You will have to modify your PATH
+about *~/.local/bin* not being in the PATH. You will have to either: modify your PATH
 variable before starting emacs, or stop running emacs from the virtual
-environment. To do so, add a line like the following to your *~/.bashrc*:
+environment.
 
+To modify your path, add a line like the following to your *~/.bashrc*:
+
+```bash
 export PATH="$PATH:$HOME/.local/bin"
+```
+## Javascript and json support via tide and JSX
+*emacs 27* provides native support for react and typescript via *JSX*.
 
-## tide
+The *tide* package further extends this support. See <http://github.com/ananthakumaran/tide>.
 
-Adds typescript support for Javascript parsing. This is an *emacs 26* specific package and will be replaced when *emacs 27* provides native support. See <http://github.com/ananthakumaran/tide>.
-
-## json-mode
-A simplified Javascript mode that specializes in json formatted data files. See: <https://github.com/joshwnj/json-mode>.
-
-# Environment Setup
+# General emacs Environment Setup
 
 What follows are instructions that I use to setup *emacs* in a GNU/Linux environment. These settings are not specfic to anything found in this repository.
 
@@ -271,7 +235,7 @@ I like to run *emacs* in daemon mode (as a server). This is a better way to run 
 
 By default, *emacsclient* starts a new client that connects to the existing emacs daemon running in the background. The "--alternate-editor=" syntax is awkward, but it essentially means start up a new *emacs daemon* if the client could not connect to an existing one. Note that if you put an argument after the *=*, the behavior changes. When the deamon isn't already running *emacsclient* would then instead try to start the specified editor as a backup option. For example: *--alternate-editor=/usr/bin/nano* would try to connect to an *emacs daemon* and if that failed, it would start the nano editor and a new *emacs daemon* would not be started.
 
-At this point, I use the *VISUAL* variable for editors running in *X* or *wayland* and *EDITOR* for editors running inside a terminal. This is not really what they were originally intended for, but that usage is archaic for most users anyway (unless you have a 300 baud modem and a printer instead of a display screen). You should understand what these two variables mean to other UNIX era legacy programs before you decide to mimic this setup, or you may run into minor issues. 
+At this point, I use the *VISUAL* variable for editors running in *X* or *wayland* and *EDITOR* for editors running inside a terminal. This is not really what they were originally intended for, but that usage is archaic for most users anyway (unless you have a 300 baud modem and a printer instead of a display screen). You should understand what these two variables mean to other UNIX era legacy programs before you decide to mimic this setup, or you may run into minor issues.
 
 We are passing *-t* to run a terminal version when EDITOR is used by some other program. This starts a new *emacs* client inside the terminal window.
 
@@ -286,9 +250,58 @@ In order to use C++ features of ccls and lsp-mode, you will need to have *clang*
 ```bash
 sudo apt-get install clang ccls
 ```
+
 ## Systemd integration
 
-You may take your setup one step further and have your emacs daemon managed by systemd, so that it starts up automatically when the machine starts. Instructions to do so are here: <https://nilsdeppe.com/posts/emacs-c++-ide2>. I don't do this as it seems overkill for my use case.
+You may take your setup one step further and have your emacs daemon managed by *systemd*, so that it starts up automatically when the machine starts. Instructions to do so are here: <https://nilsdeppe.com/posts/emacs-c++-ide2>. I don't do this as it seems overkill for my use case.
+
+# Tutorials & Resources
+
+If you are new to *emacs* you may want to read some tutorials before copying a setup. A good place to start is reading the official GNU manual for *emacs*. You can do this on your local machine using the *info* command, or you can read the online manual: <https://www.gnu.org/software/emacs/manual/>.
+
+Many other resources are available as well. Some notable resources:
+
+* <https://www.emacswiki.org/>
+* <http://ergoemacs.org/>
+* <https://www.reddit.com/r/emacs/>
+
+C++ setup resources:
+
+* <http://tuhdo.github.io/c-ide.html>
+* <https://nilsdeppe.com/posts/emacs-c++-ide2>
+* <https://www.sandeepnambiar.com/setting-up-emacs-for-c++/>
+* <https://trivialfis.github.io/emacs/2017/08/02/C-C++-Development-Environment-on-Emacs.html>
+
+
+Python setup resources:
+
+* <https://elpy.readthedocs.io/>
+
+
+Javascript setup resources:
+
+* <https://patrickskiba.com/emacs/2019/09/07/emacs-for-react-dev.html>
+* <http://wikemacs.org/wiki/JavaScript>
+
+Much of this setup has been taken from these sources and modified for my specific use.
+
+## Pre-configured emacs distributions
+
+There are modified distributions of *emacs* that are purpose specific and configured "out-of-the-box". They won't work with this setup since they provide their own pre-rolled packages and settings. You may wish to consider using one of them.
+
+**Spacemacs** is geared to *emacs* beginners with *vi/vim* experience:
+
+* <https://www.spacemacs.org/>
+
+**Doom-emacs** is geared to more experienced power users who want a leaner experience than spacemacs:
+
+* <https://github.com/hlissner/doom-emacs>
+
+**Prelude** is a distribution of *emacs* geared towards simplicity and
+reliability. It is more conservative and closer to *emacs*, but with packages
+setup to work in most languages:
+
+* <https://prelude.emacsredux.com/en/latest>
 
 # How to build your own emacs
 
@@ -299,17 +312,13 @@ Sometimes, the distributions version of *emacs* is not up to par. Below are my b
 ```bash
 # add sources repos in /etc/apt/sources.list by uncommenting srcs repositories matching the binary equivalents.
 sudo apt-get update
-sudo apt-get build-dep emacs25 # or most recent version available.
-sudo apt-get install libgtk-3-dev libwebkit2gtk-4.0-dev
+sudo apt-get build-dep emacs
+sudo apt-get install libgtk-3-dev libwebkit2gtk-4.0-dev libjansson-dev libjansson4
 # change the prefix to be whereever you wish. Your local home directory if you want.
-./configure --with-modules --with-cairo --with-xwidgets --with-x-toolkit=gtk3 --prefix=/opt/paul --exec-prefix=/opt/paul
+./configure --with-modules --with-cairo --with-xwidgets --with-x-toolkit=gtk3 --with-mailutils --with-imagemagick --prefix=/usr/local
 make -j
-sudo mkdir /opt/paul
-sudo chmod 755 /opt/paul
-sudo make install prefix=/opt/paul exec-prefix=/opt/paul
+sudo make install prefix=/usr/local
 ```
-
-**FIXME:** Add RHEL/CentOS 7 build instructions
 
 # Keyboard setup, Kenesis Advantage II emacs setup
 
