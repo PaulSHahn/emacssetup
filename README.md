@@ -4,9 +4,9 @@ This sets up GNU *emacs*. This setup is tailored for Python, C++ and Javascript 
 
 # emacs Tutorials & Resources
 
-If you are new to *emacs* you may want to read some tutorials before copying someones setup. I would start by reading the GNU info manual for *emacs*. You can do this on your local machine using the *info* command, or online here: <https://www.gnu.org/software/emacs/manual/>.
+If you are new to *emacs* you may want to read some tutorials before copying someone's setup. A good place to start is reading the GNU info manual for *emacs*. You can do this on your local machine usingf the *info* command, or you can read the online manual: <https://www.gnu.org/software/emacs/manual/>.
 
-Many other resources are available as well. Some resources that I use:
+Many other resources are available as well. Some notable resources:
 
 * <https://www.emacswiki.org/>
 * <http://ergoemacs.org/>
@@ -25,6 +25,11 @@ Python setup resources:
 
 * <https://elpy.readthedocs.io/>
 
+
+Javascript setup resources:
+
+* <https://patrickskiba.com/emacs/2019/09/07/emacs-for-react-dev.html>
+* <http://wikemacs.org/wiki/JavaScript>
 
 ## Alternative emacs forks & distributions
 
@@ -63,7 +68,7 @@ setup to work in most languages:
     This allows you to have one setup for all machines that run *emacs*, and to keep that setup as synchronized as possible.
 
 3. Start emacs.
-    
+
     ```bash
     $ emacs
     ```
@@ -87,7 +92,7 @@ A good example of this would be creating a branch for each major version of *ema
 
 *Don't forget to commit and push your changes back to your forked repository.*
 
-Note that *emacs* can interactively change the contents of your *~/emacs.d/init.el* file as it saves updates you have requested. *emacs* does this when you use drop-down menu options to change settings or when you install new packages. You should make sure you are done making such changes before you attempt to commit your changes with git. To commit changes, you can either use *git* on the command line, or you can use *magit* inside *emacs*. *magit* is a powerful *emacs* integration layer that is worth learning, and basic usage is fairy intuitive. 
+Note that *emacs* can interactively change the contents of your *~/emacs.d/init.el* file as it saves updates you have requested. *emacs* does this when you use drop-down menu options to change settings or when you install new packages. You should make sure you are done making such changes before you attempt to commit your changes with git. To commit changes, you can either use *git* on the command line, or you can use *magit* inside *emacs*. *magit* is a powerful *emacs* integration layer that is worth learning, and basic usage is fairy intuitive.
 
 # Configuration & Setup File Organization
 
@@ -153,18 +158,18 @@ I use two different packages that can get rid of bad white-space.
 
 Which one to use?
 
-If you are working on legacy code with others, you may want to use *ws-butler*. Otherwise, if you use whitespace-cleanup-mode you will have huge commit sizes
+If you are working on legacy code with others, you may want to use *ws-butler*. If you use *whitespace-cleanup-mode* you will have huge commit sizes
 that have nothing to do with your change. This occurs since you will have reformatted the entire file every-time you save. If you are on greenfield development
-it should not matter-- ws-bulter will keep you safe to begin with. If you are refactoring or cleaning up code, then whitespace-cleanup-mode may be a better
+it should not matter-- *ws-bulter* will keep you safe to begin with. If you are refactoring or cleaning up code, then *whitespace-cleanup-mode* may be a better
 choice.
 
-You can manually start whitespace-cleanup-mode on any buffer via *M-x whitespace-cleanup-mode*. You can set it up to be always on instead of ws-bulter by
-editing *~/emacs.d/custom/setup-editing.el* and removing the lines commenting out global-whitespace-cleanup-mode. You should also comment out ws-butler at the
-same time (since you really only need one running at a time).
+You can manually start *whitespace-cleanup-mode* on any buffer via *M-x whitespace-cleanup-mode*. You can set it up to be always on instead of *ws-bulter* by
+editing *~/emacs.d/custom/setup-editing.el* and removing the lines commenting out *global-whitespace-cleanup-mode*. You should also comment out *ws-butler* at the
+same time (you really only want one running at a time).
 
 ## volatile-highlights
 
-**volatile-highlights** briefly shows us text that has been altered or pasted in. The text will appear highlighted until the next keystroke. This provides a tiny bit more visual context to what we have done. See: <https://www.emacswiki.org/emacs/VolatileHighlights>. 
+**volatile-highlights** briefly shows us text that has been altered or pasted in. The text will appear highlighted until the next keystroke. This provides a tiny bit more visual context to what we have done. See: <https://www.emacswiki.org/emacs/VolatileHighlights>.
 
 ## undo-tree
 
@@ -189,7 +194,7 @@ Provides the ability to edit markdown files and see the output of files edited. 
 
 Provides spell-checking as you go. See: <https://github.com/d12frosted/flyspell-correct>.
 
-## lsp-mode, lsp-ui, company-lsp & ccls
+## lsp-mode, lsp-ui & ccls
 
 **lsp-mode** enables the language server protocol support for *emacs*. This allows code completion and syntax highlighting for multiple programming languages. Unlike other tagging solutions, this one scales well and is relatively fast. It lets us integrate with third-party services, servers and interfaces to investigate our code.  See: <https://github.com/emacs-lsp/lsp-mode>.
 
@@ -220,37 +225,44 @@ Lets us navigate and interactively view the versions of a git controlled file. S
 
 This package provides advanced Python specific IDE abilities and greatly enhances the Python programming experience inside *emacs*. See: <https://elpy.readthedocs.io/en/latest/introduction.html>
 
-### py-autopep8, yapf, jedi, rope, black, flake8
+### Python pip packages to install autopep8, yapf, jedi, rope, black, flake8
 
-This helps elpy enforce compliance with the Python Pep-8 coding standards. See: <http://paetzke.me/project/py-autopep8.el>.
-This will underline in red all non-compliant code.
+These pip packages provide features used by elpy.
+
+*autopep8* helps elpy enforce compliance with the Python Pep-8 coding standards by underlining in red all non-compliant code. See: <http://paetzke.me/project/py-autopep8.el>.
+*flake8* is the linter static analysis engine used by autopep8.
 
 To install all python packages needed by Elpy:
 
 ```bash
 pip install autopep8 jedi rope yapf black flake8 pydocstyle
 ```
-Sometimes, you may want to override some pep8 style settings, such as the default line length being set to only 80 characters. 
+
+Sometimes, you may want to override some pep8 style settings, such as the default line length being set to only allow 80 characters.
 To do this, edit *$HOME/.config/pycodestyle* and add the appropriate ini-file style configuration settings. Such as:
 
 ```
 [pycodestyle]
-max_line_length = 120
+max_line_length = 165
 ignore = E501
 ```
 
 To make sure elpy is running correctly, *M-X elpy-config*. Note any *warnings* or missing packages and install them.
 
 If you are using a dedicated virtual environment per project, elpy may warn
-about *~/.local/bin* not being in the PATH. You will have to modify your PATH
+about *~/.local/bin* not being in the PATH. You will have to either: modify your PATH
 variable before starting emacs, or stop running emacs from the virtual
-environment. To do so, add a line like the following to your *~/.bashrc*:
+environment.
 
+To modify your path, add a line like the following to your *~/.bashrc*:
+
+```bash
 export PATH="$PATH:$HOME/.local/bin"
+```
+## tide and javascript support
+*emacs 27* provides native support for react and typescript via *JSX*.
 
-## tide
-
-Adds typescript support for Javascript parsing. This is an *emacs 26* specific package and will be replaced when *emacs 27* provides native support. See <http://github.com/ananthakumaran/tide>.
+The *tide* package further extends this support. See <http://github.com/ananthakumaran/tide>.
 
 ## json-mode
 A simplified Javascript mode that specializes in json formatted data files. See: <https://github.com/joshwnj/json-mode>.
@@ -271,7 +283,7 @@ I like to run *emacs* in daemon mode (as a server). This is a better way to run 
 
 By default, *emacsclient* starts a new client that connects to the existing emacs daemon running in the background. The "--alternate-editor=" syntax is awkward, but it essentially means start up a new *emacs daemon* if the client could not connect to an existing one. Note that if you put an argument after the *=*, the behavior changes. When the deamon isn't already running *emacsclient* would then instead try to start the specified editor as a backup option. For example: *--alternate-editor=/usr/bin/nano* would try to connect to an *emacs daemon* and if that failed, it would start the nano editor and a new *emacs daemon* would not be started.
 
-At this point, I use the *VISUAL* variable for editors running in *X* or *wayland* and *EDITOR* for editors running inside a terminal. This is not really what they were originally intended for, but that usage is archaic for most users anyway (unless you have a 300 baud modem and a printer instead of a display screen). You should understand what these two variables mean to other UNIX era legacy programs before you decide to mimic this setup, or you may run into minor issues. 
+At this point, I use the *VISUAL* variable for editors running in *X* or *wayland* and *EDITOR* for editors running inside a terminal. This is not really what they were originally intended for, but that usage is archaic for most users anyway (unless you have a 300 baud modem and a printer instead of a display screen). You should understand what these two variables mean to other UNIX era legacy programs before you decide to mimic this setup, or you may run into minor issues.
 
 We are passing *-t* to run a terminal version when EDITOR is used by some other program. This starts a new *emacs* client inside the terminal window.
 
