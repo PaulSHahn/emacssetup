@@ -6,7 +6,7 @@ This is my configuration for GNU *emacs* and related usage notes. This setup is 
 
 *So what can I do with this repo?*
 
-If you want to setup *emacs* for C, C++, Python, or Javascript development, you can start with this setup. Then you can then continue to configure it to meet your needs as you go. To do this:
+If you want to setup *emacs* for C, C++, Python, or Javascript development-- then you may want to start with this setup. You can continue to configure it to meet your needs as you go. To do this:
 
 1. Fork this repository into your own github account. To fork this repository, see: <https://help.github.com/en/github/getting-started-with-github/fork-a-repo>. Optionally, you may want to create a template from that forked repository that everyone in your organization can use, see: <https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template>.
 
