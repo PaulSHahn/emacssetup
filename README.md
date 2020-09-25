@@ -4,7 +4,7 @@ This sets up GNU *emacs*. This setup is tailored for Python, C++ and Javascript 
 
 # emacs Tutorials & Resources
 
-If you are new to *emacs* you may want to read some tutorials before copying someone's setup. A good place to start is reading the GNU info manual for *emacs*. You can do this on your local machine usingf the *info* command, or you can read the online manual: <https://www.gnu.org/software/emacs/manual/>.
+If you are new to *emacs* you may want to read some tutorials before copying someone's setup. A good place to start is reading the GNU info manual for *emacs*. You can do this on your local machine using the *info* command, or you can read the online manual: <https://www.gnu.org/software/emacs/manual/>.
 
 Many other resources are available as well. Some notable resources:
 
@@ -33,7 +33,7 @@ Javascript setup resources:
 
 ## Alternative emacs forks & distributions
 
-There are modified distributions of *emacs* that are more cookie-cutter. You may wish to try them, but they won't work with this setup, since they provide their own pre-rolled packages and settings.
+There are modified distributions of *emacs* that are more cookie-cutter. You may wish to try them, but they won't work with this setup. They provide their own pre-rolled packages and settings.
 
 Spacemacs is geared to *emacs* beginners with *vi/vim* experience:
 
@@ -51,9 +51,11 @@ setup to work in most languages:
 
 # Using this repository
 
-*So what do I do with this repo?*
+*So what can I do with this repo?*
 
-1. You should fork this repository into your own github account. To fork this repository, see: <https://help.github.com/en/github/getting-started-with-github/fork-a-repo>. Optionally, you may want to create a template from that forked repository that everyone in your organization can use, see: <https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template>.
+If you want to setup *emacs* for C, Python, or Javascript development, you can try this setup. You can then configure it to meet your needs. To do this:
+
+1. Fork this repository into your own github account. To fork this repository, see: <https://help.github.com/en/github/getting-started-with-github/fork-a-repo>. Optionally, you may want to create a template from that forked repository that everyone in your organization can use, see: <https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template>.
 
 2. Next, you should clone your new repository to every machine where you use *emacs*. When you clone it, clone it to your *emacs* settings directory. On Linux, this is in your home directory at: *~/.emacs.d*:
 
@@ -90,11 +92,11 @@ A good example of this would be creating a branch for each major version of *ema
 
 ## Committing Changes
 
-*Don't forget to commit and push your changes back to your forked repository.*
+*Don't forget to commit and push your changes back to your repository.*
 
 Note that *emacs* can interactively change the contents of your *~/emacs.d/init.el* file as it saves updates you have requested. *emacs* does this when you use drop-down menu options to change settings or when you install new packages. You should make sure you are done making such changes before you attempt to commit your changes with git. To commit changes, you can either use *git* on the command line, or you can use *magit* inside *emacs*. *magit* is a powerful *emacs* integration layer that is worth learning, and basic usage is fairy intuitive.
 
-# Configuration & Setup File Organization
+# Configuration & Setup
 
 The *emacs.d* directory has several setup files. At the top level, the *init.el* file contains only the most generic of *emacs* settings. In our setup, it's main purpose is to require other settings files, which live under the *custom* subdirectory. This lets us break out portions of setup code into bite-sized and purpose specific pieces, instead of having everything inside one large file.
 
@@ -112,17 +114,18 @@ If you don't need a portion of this setup, simply remove the setup-{item).el fil
 
 # Packages installed with this setup
 
-There are so many options and packages to configure an *emacs* setup. It is dizzying nowadays. Below I describe the packages currently used in this setup and where you can go to get more information about them.
+There are many options and packages available in modern *emacs*. It is dizzying. Many compete with each other to do similar tasks, but in different ways. These packages will often conflict with each other. It is best to install and use one new thing at a time. Learn what it can do for you and make sure it is not causing any issues before installing the next package. It is a trial and error process.
+
+Below I describe the packages currently used in this setup and where you can go to get more information about them.
 
 ## company & company-box
 **company** is a text auto-completion framework for *emacs*. *company* provides a pluggable search framework for auto-complete results. See: <https://company-mode.github.io/>.
-
 
 **company-box** Extends company to support the display of icons in-line with text results. See: <https://github.com/sebastiencs/company-box>.
 
 ## async
 
-**async** supports running code asyncronously, which lets elisp cooperatively switch between running processes whenever a process blocks on I/O, similar to Node.js or Python asyncio. See: <https://github.com/jwiegley/emacs-async>.
+**async** supports running code asyncronously, which lets elisp cooperatively switch between running processes whenever a process blocks on I/O. This is similar to Node.js or Python asyncio. See: <https://github.com/jwiegley/emacs-async>.
 
 ## window-numbering
 
@@ -151,17 +154,17 @@ See: <https://docs.projectile.mx/en/latest/>
 
 I use two different packages that can get rid of bad white-space.
 
-1. **ws-bulter:** The default. This is a gentler program that only cleans up whitespace in the area you have modified. Everyone else's strange whitespacing is
+1. **ws-bulter:** The enabled default. This is a gentler program that only cleans up whitespace in the area you have modified. Everyone else's strange whitespacing is
    left alone. This is the default enabled in most editing and programming modes. See: <https://github.com/lewang/ws-butler>.
 
 2. **whitespace-cleanup-mode:** This nukes all erroneous whitespace in the file everytime you save to disk. It is not on by default, but just installed. See: <https://github.com/purcell/whitespace-cleanup-mode>.
 
 Which one to use?
 
-If you are working on legacy code with others, you may want to use *ws-butler*. If you use *whitespace-cleanup-mode* you will have huge commit sizes
+If you are working on legacy code with others, you should probably use *ws-butler*. Using *whitespace-cleanup-mode* will result in huge commit sizes
 that have nothing to do with your change. This occurs since you will have reformatted the entire file every-time you save. If you are on greenfield development
-it should not matter-- *ws-bulter* will keep you safe to begin with. If you are refactoring or cleaning up code, then *whitespace-cleanup-mode* may be a better
-choice.
+it should not matter as much-- *ws-bulter* will keep you safe to begin with. If you are refactoring or cleaning up code, then *whitespace-cleanup-mode* may be a better
+choice since it lets you aggressively fix bad whitespace.
 
 You can manually start *whitespace-cleanup-mode* on any buffer via *M-x whitespace-cleanup-mode*. You can set it up to be always on instead of *ws-bulter* by
 editing *~/emacs.d/custom/setup-editing.el* and removing the lines commenting out *global-whitespace-cleanup-mode*. You should also comment out *ws-butler* at the
@@ -221,7 +224,7 @@ Keeps track of changes to our git version controlled files in a small "gutter" w
 
 Lets us navigate and interactively view the versions of a git controlled file. See: <https://github.com/emacsmirror/git-timemachine>.
 
-## elpy
+## Python support via elpy
 
 This package provides advanced Python specific IDE abilities and greatly enhances the Python programming experience inside *emacs*. See: <https://elpy.readthedocs.io/en/latest/introduction.html>
 
@@ -259,13 +262,10 @@ To modify your path, add a line like the following to your *~/.bashrc*:
 ```bash
 export PATH="$PATH:$HOME/.local/bin"
 ```
-## tide and javascript support
+## Javascript and json support via tide and JSX
 *emacs 27* provides native support for react and typescript via *JSX*.
 
 The *tide* package further extends this support. See <http://github.com/ananthakumaran/tide>.
-
-## json-mode
-A simplified Javascript mode that specializes in json formatted data files. See: <https://github.com/joshwnj/json-mode>.
 
 # Environment Setup
 
