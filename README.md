@@ -212,12 +212,16 @@ pip install autopep8 jedi rope yapf black flake8 pydocstyle
 ```
 
 Sometimes, you may want to override some pep8 style settings, such as the default line length being set to only allow 80 characters.
-To do this, edit *$HOME/.config/pycodestyle* and add the appropriate ini-file style configuration settings. Such as:
+Another current issue is that pycodestyle enforces W503 and W504 out of the box when all warnings are enabled.
+These two rules actually conflict with each other. The current best practice in PEP8 is to use W504, as W503 is deprecated.
+
+To change settings, edit *$HOME/.config/pycodestyle* and add the appropriate ini-file style configuration settings.
+The following changes the default line length from 80 to 160 characters and turns off W503:
 
 ```
 [pycodestyle]
-max_line_length = 165
-ignore = E501
+max_line_length = 160
+ignore = W503
 ```
 
 To make sure elpy is running correctly, *M-X elpy-config*. Note any *warnings* or missing packages and install them.

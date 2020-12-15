@@ -55,4 +55,4 @@
 ;; C and C++ specific configuration
 (require 'setup-c)
 ;; on windows machines, uncomment this for specific windows settings.
-(require 'setup-windows)
+;;(require 'setup-windows)
