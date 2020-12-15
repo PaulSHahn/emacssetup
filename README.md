@@ -43,6 +43,24 @@ Since this is a *git* repository, it is easy to use across multiple machines, yo
 
 A good example of this would be creating a branch for each major version of *emacs*: an emacs 26 branch, a 25 branch, etc. Then you just clone the repo and checkout the branch matching your version.
 
+## Windows Specific Stuff
+*emacs* is a second class citizen in this second class OS. You will need some things to have a chance of getting an IDE running. You can either mess with installing *emacs* as a part of a complete Cygwin, Min32 or Windows UNIX toolkit, or you can try the Windows native version of *emacs*. I prefer to run *emacs* in the native version. If that doesn't work, then I install a virtual machine with a Linux flavor in its entirety. Intermediary solutions cause as many problems as they solve.
+
+To install in the native environment:
+
+1. Get the latest zip file (installer exe): http://gnu.mirror.constant.com/emacs/windows/
+2. Run the installer.
+3. You will need to download some utilities from https://sourceforge.net/projects/ezwinports/:
+   3.1 https://sourceforge.net/projects/ezwinports/files/latest/download
+   3.2 https://sourceforge.net/projects/ezwinports/files/hunspell-1.3.2-3-w32-bin.zip/download (or whatever is the latest)
+4. Unzip these files into a parent directory.
+5. Install pandoc for windows: https://pandoc.org/installing.html
+6. Add the parent bin files directory to the environment variable PATH. i.e. *C:\Users\USERNAME\Downloads\binutils\binutils-2.35-w32-bin\bin* , *C:\Users\USERNAME\Downloads\binutils\hunspell-1.3.2-3-w32-bin\bin* and *C:\Users\USERNAME\AppData\Local\Pandoc\*
+7. You can edit *emacs.d/custom/setup-windows.el* to setup windows specific customizations.
+8. Edit *emacs.d/init.el* and remove the comments before *(require setup-windows.el)*
+9. Now start *emacs* and load your packages.
+
+
 ## Committing Changes
 
 *Don't forget to commit and push your changes back to your repository.*
