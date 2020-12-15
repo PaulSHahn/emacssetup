@@ -14,8 +14,7 @@
 ;; custom markdown pandoc settings
 (setq markdown-command
    (concat "/usr/bin/pandoc"
-           " --from=markdown --to=html"
-           " --standalone --mathjax --highlight-style=tango") )
+           " --from=markdown --to=html --standalone --mathjax --highlight-style=tango --metadata pagetitle='markdown-preview-mode'") )
 
 (add-hook 'markdown-mode-hook
           (lambda ()
