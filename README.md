@@ -212,11 +212,12 @@ pip install autopep8 jedi rope yapf black flake8 pydocstyle
 ```
 
 Sometimes, you may want to override some pep8 style settings, such as the default line length being set to only allow 80 characters.
-To do this, edit *$HOME/.config/pycodestyle* and add the appropriate ini-file style configuration settings. Such as:
+To do this on linux, edit *$HOME/.config/pycodestyle* and add the appropriate ini-file style configuration settings. On Windows, the file 
+to edit is typically *~/.pycodestyle*. An example that sets the line length to 160 characters and disables E501:
 
 ```
 [pycodestyle]
-max_line_length = 165
+max_line_length = 160
 ignore = E501
 ```
 
