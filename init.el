@@ -18,7 +18,7 @@
  ;; If there is more than one, they won't work right.
  '(c-noise-macro-names '("constexpr"))
  '(package-selected-packages
-   '(jedi jedi-core jedi-direx lsp-jedi git-gutter lsp-ui iedit powershell helm-apt cmake-font-lock ccls bazel-mode git-timemachine flyspell-correct-helm modern-cpp-font-lock projectile-sift magit magithub whitespace-cleanup-mode prettier-js tide js2-mode json-mode pycoverage projectile anzu helm helm-swoop helm-projectile company company-box helm-company markdown-mode markdown-mode+ markdown-preview-mode sr-speedbar volatile-highlights ws-butler undo-tree py-autopep8 elpy flycheck flycheck-coverity flycheck-tip flycheck-yamllint flymake-yaml yaml-mode lsp-mode moder-cpp-font-lock window-numbering py-yapf yapfify cmake-mode))
+   '(git-gutter lsp-ui iedit powershell helm-apt cmake-font-lock ccls bazel-mode git-timemachine flyspell-correct-helm modern-cpp-font-lock projectile-sift magit magithub whitespace-cleanup-mode prettier-js tide js2-mode json-mode pycoverage projectile anzu helm helm-swoop helm-projectile company company-box helm-company markdown-mode markdown-mode+ markdown-preview-mode sr-speedbar volatile-highlights ws-butler undo-tree py-autopep8 elpy flycheck flycheck-coverity flycheck-tip flycheck-yamllint flymake-yaml yaml-mode lsp-mode moder-cpp-font-lock window-numbering py-yapf yapfify cmake-mode))
  '(pandoc-binary "c:/Users/phahn01/AppData/Local/Pandoc/pandoc.exe"))
 
 (custom-set-faces
