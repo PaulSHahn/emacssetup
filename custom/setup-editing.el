@@ -14,10 +14,10 @@
       )
 
 ;; prefer utf8 to ascii
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8-unix)
+(set-keyboard-coding-system 'utf-8-unix)
 (set-language-environment "UTF-8")
-(prefer-coding-system 'utf-8)
+(prefer-coding-system 'utf-8-unix)
 
 ;; don't disable downcase and upcase region. I use them frequently.
 (put 'downcase-region 'disabled nil)
