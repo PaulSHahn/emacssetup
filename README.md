@@ -187,7 +187,7 @@ pip install python-lsp-server[all]
 ```
 
 The current setup enables this. You can edit *custom/setup-python.el* and *custom/setup-editing.el* to change or disable this.
-Note that the default install of *python-lsp-server*  sets it up to use *flake8* by default. 
+Note that the default install of *python-lsp-server*  sets it up to use *flake8* by default.
 
 ## magit
 
