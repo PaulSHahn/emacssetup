@@ -170,17 +170,24 @@ Provides spell-checking as you go. See: <https://github.com/d12frosted/flyspell-
 
 ## lsp-mode, lsp-ui & ccls
 
-**lsp-mode** enables the language server protocol support for *emacs*. This allows code completion and syntax highlighting for multiple programming languages. Unlike other tagging solutions, this one scales well and is relatively fast. It lets us integrate with third-party services, servers and interfaces to investigate our code.  See: <https://github.com/emacs-lsp/lsp-mode>.
+**lsp-mode** enables the language server protocol support for *emacs*. This allows code completion and syntax highlighting for multiple programming languages. Unlike other tagging solutions, this one scales well and is relatively fast. It lets us integrate with third-party services, servers and interfaces to investigate our code.  See: <https://github.com/emacs-lsp/lsp-mode> and  <https://emacs-lsp.github.io/>.
 
-**lsp-ui** Part of lsp-mode. Contains ui features to display results. See: <https://github.com/emacs-lsp/lsp-ui>
+The current setup enables this. You can edit *custom/setup-editing.el* to change this.
 
-**ccls** is an emacs mode that runs the ccls server (you must have this installed along with clang). This provides lsp data for C/C++ & Objective C. See: <https://github.com/MaskRay/emacs-ccls>.
+**lsp-ui** Contains ui features to display results. See: <https://github.com/emacs-lsp/lsp-ui>
 
-If you want to use lsp-mode with Python, you will need a python language back-end, such as the python-language-server. You can install this in your python environment with pip:
+**ccls** is an emacs mode that runs the ccls server (you must have this installed along with clang). This provides lsp data for C/C++ & Objective C. See: <https://github.com/MaskRay/emacs-ccls>. For detailed instructions on how to install and setup ccls, see <https://github.com/MaskRay/ccls/wiki>.
+
+The current setup enables this. You can edit *custom/setup-c.el* to change this.
+
+**python-lsp-server** If you want to use lsp-mode with Python, you will need a python language back-end, such as the python-lsp-server. You can install this in your python environment with pip:
 
 ```bash
-pip install python-language-server
+pip install python-lsp-server[all]
 ```
+
+The current setup enables this. You can edit *custom/setup-python.el* and *custom/setup-editing.el* to change or disable this.
+Note that the default install of *python-lsp-server*  sets it up to use *flake8* by default. 
 
 ## magit
 
@@ -194,13 +201,13 @@ Keeps track of changes to our git version controlled files in a small "gutter" w
 
 Lets us navigate and interactively view the versions of a git controlled file. See: <https://github.com/emacsmirror/git-timemachine>.
 
-## Python support via elpy
+## Python elpy IDE
 
-This package provides advanced Python specific IDE abilities and greatly enhances the Python programming experience inside *emacs*. See: <https://elpy.readthedocs.io/en/latest/introduction.html>
+Instead of using LSP, you could use elpy. This package provides advanced Python specific IDE abilities and greatly enhances the Python programming experience inside *emacs*. See: <https://elpy.readthedocs.io/en/latest/introduction.html>. By default, elpy is disabled in favor of LSP only, you can edit *custom/setup-python.el* to change this, simply uncomment sections referencing elpy.
 
-### Python pip packages to install autopep8, yapf, jedi, rope, black, flake8
+### Adding and configuring additional Python packages: autopep8, yapf, jedi, rope, black, flake8
 
-These pip packages provide features used by elpy.
+These pip packages provide features used by elpy, but are handy on their own and some are also installed with *python-lsp-server*.
 
 *autopep8* helps elpy enforce compliance with the Python Pep-8 coding standards by underlining in red all non-compliant code. See: <http://paetzke.me/project/py-autopep8.el>.
 *flake8* is the linter static analysis engine used by autopep8.
@@ -211,7 +218,7 @@ To install all python packages needed by Elpy:
 pip install autopep8 jedi rope yapf black flake8 pydocstyle
 ```
 
-Sometimes, you may want to override some pep8 style settings, such as the default line length being set to only allow 80 characters.
+Sometimes, you may want to override some of autopep8's style settings, such as the default line length being set to only allow 80 characters.
 Another current issue is that pycodestyle enforces W503 and W504 out of the box when all warnings are enabled.
 These two rules actually conflict with each other. The current best practice in PEP8 is to use W504, as W503 is deprecated.
 
@@ -223,6 +230,25 @@ The following changes the default line length from 80 to 160 characters and turn
 max_line_length = 160
 ignore = W503
 ```
+
+To override the default pylint settings, create an rc file in your home directory or project root called *.pylintrc*:
+
+```
+[MASTER]
+
+persistent=yes
+
+[FORMAT]
+max-line-length=160
+
+```
+
+To override flake8, itself, look for file *~/.config/flake8*:
+```
+[flake8]
+max-line-length = 160
+```
+
 
 To make sure elpy is running correctly, *M-X elpy-config*. Note any *warnings* or missing packages and install them.
 

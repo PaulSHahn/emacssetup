@@ -6,6 +6,10 @@
 (setq python-indent 4)
 (setq python-indent-offset 4)
 
+(use-package pyvenv
+  :ensure t
+  :init(setenv "WORKON_HOME" "~/python_venvs/"))
+
 ;; Emacs Python IDE
 (use-package elpy
   :ensure t
@@ -13,13 +17,6 @@
   :init
   (advice-add 'python-mode :before 'elpy-enable))
 
-(setq elpy-rpc-virtualenv-path 'current)
-
-;; reformat Python code on save
-;;(use-package yapfify
-;;  :ensure t
-;;  :init
-;;  (add-hook 'python-mode-hook 'yapf-mode))
 
 ;;(add-hook 'elpy-mode-hook (lambda ()
 ;;                            (add-hook 'before-save-hook
