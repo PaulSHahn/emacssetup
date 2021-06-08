@@ -27,6 +27,9 @@
 ;; display the current time
 (display-time)
 
+;; only use this if you have compiled from git head with option --with-native-compilation
+(setq comp-deferred-compilation t)
+
 ;; highlight search results by default
 (setq-default search-highlist t)
 
@@ -49,8 +52,6 @@
 ;; Don't display the startup message
 (setq inhibit-startup-message t)
 
-;; Don't garbage collect at the default .8MB. We have lots of memory.
-(setq gc-cons-threshold 100000000)
 
 ;; highlight trailing whitespace with red characters
 (add-hook 'prog-mode-hook

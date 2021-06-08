@@ -18,7 +18,14 @@
  ;; If there is more than one, they won't work right.
  '(c-noise-macro-names '("constexpr"))
  '(package-selected-packages
-   '(lsp-jedi elpy helm-apt cmake-font-lock ccls bazel-mode git-timemachine flyspell-correct-helm modern-cpp-font-lock projectile-sift magit magithub git-gutter whitespace-cleanup-mode prettier-js tide js2-mode json-mode pycoverage projectile anzu helm helm-swoop helm-projectile company company-box helm-company iedit markdown-mode markdown-mode+ markdown-preview-mode sr-speedbar use-package volatile-highlights ws-butler undo-tree py-autopep8 flycheck flycheck-coverity flycheck-tip flycheck-yamllint flymake-yaml yaml-mode lsp-mode lsp-ui moder-cpp-font-lock window-numbering py-yapf yapfify cmake-mode)))
+   '(lsp-jedi elpy helm-apt cmake-font-lock ccls bazel-mode git-timemachine flyspell-correct-helm modern-cpp-font-lock projectile-sift magit magithub git-gutter whitespace-cleanup-mode prettier-js tide js2-mode json-mode pycoverage projectile anzu helm helm-swoop helm-projectile company company-box helm-company iedit markdown-mode markdown-mode+ markdown-preview-mode sr-speedbar use-package volatile-highlights ws-butler undo-tree py-autopep8 flycheck flycheck-coverity flycheck-tip flycheck-yamllint flymake-yaml yaml-mode lsp-mode lsp-ui moder-cpp-font-lock window-numbering py-yapf yapfify cmake-mode))
+ '(safe-local-variable-values
+   '((projectile-project-compilation-cmd . "invoke quality.lint")
+     (projectile-project-install-cmd . "invoke build.install-local")
+     (projectile-project-package-cmd . "invoke build.release")
+     (\,
+      (projectile-project-compilation-cmd . "invoke quality.lint"))
+     (projectile-project-test-cmd . "invoke quality"))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.

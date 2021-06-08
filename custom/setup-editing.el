@@ -48,7 +48,13 @@
 ;; uncomment this and comment out ws-butler if you
 ;; really want to nuke the entire file and get rid
 ;; of all whitespace errors in it. This will bloat
-;; your files commit size and is not recommended.
+;; your files commit size and makes it hard
+;; to see what are functionality changes versus
+;; what are formatting changes, and is not recommended.
+;;
+;; If you want to clean a file you can always
+;; do so explicitly via M-x whitespace-cleanup
+;;
 ;;(global-whitespace-cleanup-mode)
 
 ;; show whitespace in diff mode
@@ -90,7 +96,6 @@
   (global-undo-tree-mode 1))
 
 ;; An abbreviation template system for emacs. Type an abbreviation and it expands it.
-
 (use-package yasnippet
   :defer t
   :init
@@ -159,14 +164,14 @@
   (add-hook 'c-mode-common-hook 'lsp-mode)
 
   :config
-  ;; Set GC threshold to 25MB since LSP mode is very memory hungry and
+  ;; Set GC threshold to 100MB since LSP mode is very memory hungry and
   ;; produces a lot of garbage
-  (setq gc-cons-threshold 25000000)
+  (setq gc-cons-threshold 100000000)
 
-  ;; Increase the amount of data which Emacs reads from the process. The emacs
+  ;; Increase the amount of data which Emacs reads from the lsp process. The emacs
   ;; default is too low 4k considering that the some of the language server
-  ;; responses are in 800k - 3M range. Set to 1MB
-  (setq read-process-output-max (* 1024 1024))
+  ;; responses are in 800k - 3M range. Set to 2MB
+  (setq read-process-output-max (* 1024 2048))
 
   ;; Extra flags passed to clangd. See 'clangd --help' for info
   (defvar lsp-clients-clangd-args '("--clang-tidy"

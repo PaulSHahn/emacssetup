@@ -5,8 +5,6 @@
 
 ;; NOTE: Don't use CEDET or semantic. They are in lisp and thus bloated & slow.
 
-;; Use universal ctags instead of rtags
-
 ;; ccls lsp server provides data for C/C++/Objective C via clang
 ;; You must have ccls & clang installed.
 ;;  (setq lsp-prefer-flymake nil)
@@ -32,7 +30,6 @@
 ;; “python”: What Python developers use for extension modules
 ;; “java”: The default style for java-mode (see below)
 ;; “user”: When you want to define your own style
-;;(setq c-default-style) "linux" ;; set style to "linux"
 (setq c-default-style "stroustrup" c-basic-offset 3)
 
 ;; company-c-headers
@@ -69,18 +66,10 @@
   (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
   (add-to-list 'auto-mode-alist '("\\.hpp\\'" . c++-mode))
   (add-to-list 'auto-mode-alist '("\\.cpp\\'" . c++-mode))
+  (add-to-list 'auto-mode-alist '("\\.pc\\'" . c++-mode))
   :config
   (custom-set-variables '(c-noise-macro-names '("constexpr")))
   )
-;;  :init
-;;  (define-key c-mode-map  [(tab)] 'company-complete)
-;;  (define-key c++-mode-map  [(tab)] 'company-complete))
-
-;; when you press RET, the curly braces automatically
-;; add another newline
-;;(sp-with-modes '(c-mode c++-mode)
-;;               (sp-local-pair "{" nil :post-handlers '(("||\n[i]" "RET")))
-;;               (sp-local-pair "/*" "*" :post-handlers '((" | " "SPC") ("* ||\n[i]" "RET"))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -137,7 +126,7 @@
      "~/.emacs.d/custom/bazel-mode.el"))
 (if (file-exists-p "~/.emacs.d/custom/bazel-mode.el")
     (use-package bazel-mode
-      :mode ("BUILD" "\\.bazel\\'" "\\.bzl'" "WORKSPACE\\'")
+      :mode ("WORKSPACE\\'")
       )
   )
 

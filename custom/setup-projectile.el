@@ -40,7 +40,7 @@
                                   :test "make test"
                                   :configure "qmake -spec linux-g++")
 
-;; search the following locations for projects. Different machines of mine have different configurations.
+;; search the following locations for projects. Different machines have different configurations and projects going.
 (setq projectile-project-search-path '("~/development/projects/" "~/redhat/DEVEL/" "~/python-projects/"))
 
 (provide 'setup-projectile)
