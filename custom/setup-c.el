@@ -3,12 +3,12 @@
 ;; Emacs 26 and newer
 ;;; Code:
 
-;; NOTE: Don't use CEDET or semantic. They are in lisp and thus bloated & slow.
+;; NOTE: Don't use CEDET or semantic. They are in lisp and slower.
 
 ;; ccls lsp server provides data for C/C++/Objective C via clang
 ;; You must have ccls & clang installed.
-;;  (setq lsp-prefer-flymake nil)
-;;  (setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-cppcheck c/c++-gcc))
+;;(setq lsp-prefer-flymake nil)
+;;(setq-default flycheck-disabled-checkers '(c/c++-clang c/c++-cppcheck c/c++-gcc))
 (use-package ccls
   :ensure t
   :config

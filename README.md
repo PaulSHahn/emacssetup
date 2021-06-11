@@ -1,9 +1,10 @@
 # My ~/.emacs.d setup
 
-This is my configuration for GNU *emacs* and related usage notes. This setup is
-tailored for Python, C++ and some Javascript development. Currently, this branch
-contains settings intended for GNU *emacs* from the head of the master branch of
-the *GNU emacs* source repository at *git.savannah.gnu.org/emacs.git*.
+This is my configuration for GNU *emacs*, along with related usage notes. This
+setup is tailored for Python, C++ and some Javascript development. Currently,
+this branch contains settings intended for GNU *emacs* from the head of the
+master branch of the *GNU emacs* source repository at
+*git.savannah.gnu.org/emacs.git*.
 
 These features are not currently released in an official build and are slated
 for *emacs 28*. I have switched from running an officially supported build due
@@ -14,22 +15,165 @@ To use this setup fully, you will need a bleeding-edge version of *emacs*
 tracking the head of the master branch. See instructions below: *How to build
 emacs from source*.
 
+# Tutorials & Resources
 
-# Using this repository
+If you are new to *emacs* you may want to read some tutorials before copying
+anyones setup, or just installing a pre-configured distribution of *emacs* like
+*doom* or *spacemacs*.
 
-*So what can I do with this repo?*
+A good place to start is reading the official GNU manual for *emacs*. You can do
+this on your local machine using the *info* command, or you can read the online
+manual: <https://www.gnu.org/software/emacs/manual/>.
 
-If you want to setup *emacs* for C, C++, Python, or Javascript development--
-then you may want to start by copying someone else's *.emacs.d* setup.  You can
-then configure it further to meet your needs as you go.
+Much of this setup has been taken from the sources below over the years and modified
+for my specific use.
 
-To copy this setup, or any similar one you see checked in to a github source repository:
+## emacs from scratch
 
-1. Fork the repository in question into your own github account. To fork this repository,
-   see:
+I would recommend that you learn *emacs* by setting it up yourself. The System
+Crafters' video series and repository serves as a good starting point:
+
+* <https://www.youtube.com/watch?v=74zOY-vgkyw&list=PLEoMzSkcN8oPH1au7H6B7bBJ4ZO7BXjSZ>
+
+
+## Pre-configured emacs distributions
+
+Your other option is to borrow/take someone else's setup, like copying this
+repository. This gets you going temporarily, but may come at the expense of you
+not knowing how to setup and customize your environment.
+
+There are modified distributions of *GNU emacs* that are purpose specific and
+configured "out-of-the-box". They won't work with this setup since they provide
+their own pre-rolled packages and settings. You may wish to consider using one
+of them.
+
+**Spacemacs** is geared to *emacs* beginners with *vi/vim* experience:
+
+* <https://www.spacemacs.org/>
+
+**Doom-emacs** is geared to more experienced power users who want a leaner
+experience than spacemacs:
+
+* <https://github.com/hlissner/doom-emacs>
+
+**Prelude** is a distribution of *emacs* geared towards simplicity and
+reliability. It is more conservative and closer to *emacs*, but with packages
+setup to work in most languages:
+
+* <https://prelude.emacsredux.com/en/latest>
+
+## General resources:
+
+Regardless of the approach you take, some good resources you may want to
+bookmark follow. I try to keep these up-to-date, but the world moves fast and
+some of them maybe a bit stale.
+
+* <https://www.emacswiki.org/>
+* <http://ergoemacs.org/>
+* <https://www.reddit.com/r/emacs/>
+* <https://masteringemacs.org>
+
+## LSP Setup
+
+* <https://emacs-lsp.github.io/lsp-mode/>
+* <https://www.youtube.com/watch?v=jPXIP46BnNA&list=PLEoMzSkcN8oNvsrtk_iZSb94krGRofFjN&index=3>
+
+## C++ setup resources:
+
+* <http://tuhdo.github.io/c-ide.html>
+* <https://nilsdeppe.com/posts/emacs-c++-ide2>
+* <https://www.sandeepnambiar.com/setting-up-emacs-for-c++/>
+* <https://trivialfis.github.io/emacs/2017/08/02/C-C++-Development-Environment-on-Emacs.html>
+
+
+## Python setup resources:
+
+Configuring *lsp-mode* to work with *python-lsp-server*:
+
+* <https://github.com/python-lsp/python-lsp-server>
+
+Using elpy instead of lsp:
+
+* <https://elpy.readthedocs.io/>
+
+
+## Javascript setup resources:
+
+* <https://patrickskiba.com/emacs/2019/09/07/emacs-for-react-dev.html>
+* <http://wikemacs.org/wiki/JavaScript>
+
+
+# How to build emacs from source
+
+Sometimes, the distributions version of *GNU emacs* is not up to par. Currently,
+this is the case for me as *GNU emacs* from git source contains features that
+are very compelling, like native compilation of emacs lisp files via
+*libgccjit*. These features are missing from *GNU emacs 27*.
+
+
+Below are my brief notes for building your own *GNU emacs*. You will need the source
+code to the version of *emacs* that you wish to build.
+
+
+## Building GNU emacs 27+ On Ubuntu (and similar):
+
+```bash
+# add sources repos in /etc/apt/sources.list by uncommenting srcs repositories matching the binary equivalents.
+sudo apt-get update
+# this isnt perfect as it doesnt track the most recent emacs but it gets you close
+sudo apt-get build-dep emacs
+# some other things that you want, versions may be out of date
+sudo apt-get install libgtk-3-dev libwebkit2gtk-4.0-dev libjansson-dev libjansson4 libgccjit-10-dev
+# checkout emacs
+git clone git://git.savannah.gnu.org/emacs.git
+cd emacs
+./autgen.sh
+# change the prefix to be the install location you wish for emacs to be installed to. Your local home directory if you want.
+./configure --with-modules --with-cairo --with-xwidgets --with-x-toolkit=gtk3 --with-mailutils --with-imagemagick --with-native-compilation --prefix=/usr/local
+# go to lunch if you have a slow machine, this takes awhile as emacs compiles all emacs lisp to machine code
+make -j
+sudo make install prefix=/usr/local
+```
+
+## Building GNU emacs 27+ On RHEL (and similar):
+
+```bash
+ sudo yum -y install jansson jansson-devel devtoolset-10-all devtoolset-10-toolchain devtoolset-10-perftools devtoolset-10-libgccjit devtoolset-10-libgccjit-devel devtoolset-10-build
+
+scl enable devtoolset-10 bash
+
+git clone git://git.savannah.gnu.org/emacs.git
+
+cd emacs
+
+./autogen.sh
+
+./configure --with-modules --with-cairo --with-xwidgets --with-x-toolkit=gtk3 --with-mailutils --with-imagemagick --prefix=/usr/local --with-native-compilation
+
+# go to lunch if you have a slow machine, this compiles all emacs lisp files to native machine code
+make -j
+
+# install
+sudo make install prefix=/usr/local
+```
+
+Note that with this setup you will need to enable devtoolset-10 via *scl* each time you start your sessions, before you can run *emacs*.
+
+# Repository usage
+
+You can check this, or another similar repository out-- then configure it
+further to meet your needs as you go. That is kinda how I ended up with this
+repository, checking it out from someone else, adding my own settings and then
+using it for years, before adding it back to github.
+
+To copy this *emacs* setup, or any similar one you see checked in to a github
+source repository:
+
+1. Fork the repository in question into your own github account. To fork a
+   repository, see:
    <https://help.github.com/en/github/getting-started-with-github/fork-a-repo>. Optionally,
-   you may want to create a template from that forked repository that every
-   emacs' user in your organization can use, see:
+   you may want to create a template from the forked repository that every
+   emacs' user in your organization can use to share common settings, see:
    <https://help.github.com/en/github/creating-cloning-and-archiving-repositories/creating-a-repository-from-a-template>.
 
 2. Next, you should clone your new repository to every machine where you use
@@ -54,6 +198,7 @@ To copy this setup, or any similar one you see checked in to a github source rep
     When you first start *emacs* after cloning, you may get errors reported in the terminal window. This is because the settings you have cloned from *git* reference packages that have not been installed yet. We will fix this in the next step by installing the missing packages.
 
 4. List your installed packages:
+
     * **M-x list-packages:** This shows the packages available. Press 'r' to reload available packages from the configured repositories (melpa).
     * **M-x package-install-selected-packages:** installs all packages listed in our *.emacs.d/init.el* file, in section *package-selected-packages*.
 
@@ -67,15 +212,16 @@ To copy this setup, or any similar one you see checked in to a github source rep
     current package and you will just end up having to download it again later.
 
 5. It is likely that newer versions of packages will be installed than the stale
-   ones listed in the *init.el* file checked out from the repo. You can download
-   newer versions by marking them with *u*. Then press *x* to download and
-   install the latest version.
+   ones listed in the *init.el* file checked out from the repo. You can refresh
+   the repository listing by pressing 'r'. You can then download newer versions
+   by marking them with *u*. Then press *x* to download and install the latest
+   version.
 
 6. When all packages are installed, you can exit *emacs* and restart it. If you are
-   running *emacs* in *daemon mode*, kill the dameon: `killall emacs` and then
+   running *emacs* in *daemon mode*, restart the dameon: `killall emacs` and then
    restart. You should no longer see startup errors in the terminal.
 
-## Using your settings across multiple machines
+## Sharing your settings across machines
 
 Since this is a *git* repository, it is easy to use across multiple machines,
 you just clone it to every machine where you use *emacs*. Occasionally, you may
@@ -84,19 +230,28 @@ setup such that it works everywhere, then create a branch for each setup you
 need.
 
 A good example of this would be creating a branch for each major version of
-*emacs*: an emacs 26 branch, a 25 branch, etc. Then you just clone the repo and
-checkout the branch matching your version. Another use is to create a branch for
-each operating system you use.
+*emacs*: an emacs 27 branch, a 26 branch, etc. Then you just clone the repo and
+checkout the branch matching your version.
+
+Another use is to create a branch for each operating system you use.
+
+Currently, this repository has branches for *GNU emacs-26*, *GNU emacs-27*, and
+a *windows* branch that is a fork of the *GNU emacs-27* branch. The *master*
+branch tracks the master branch of *GNU emacs* and assumes you have build from
+source with native compilation enabled.
 
 ## Windows Specific Stuff
 
-*emacs* is a second class citizen in this second class OS. You will need some
-things to have a chance of getting an IDE running. You can either mess with
-installing *emacs* as a part of a complete Cygwin, Min32 or Windows UNIX
-toolkit, or you can try the Windows native version of *emacs*. I prefer to run
-*emacs* in the native version. If that doesn't work, then I install a virtual
-machine with a Linux flavor in its entirety. Intermediary solutions typically
-cause more problems than they solve.
+This repository has a windows branch that gets updated from time-to-time when I
+need to develop on Windows.
+
+*emacs* is a second class citizen in this second class OS. You will need to
+install some things to have a chance of getting an IDE running. You can either
+mess with installing *emacs* as a part of a complete Cygwin, Min32 or Windows
+UNIX toolkit, or you can try the Windows native version of *emacs*. I prefer to
+run *emacs* in the native version. If that doesn't work, then I install a
+virtual machine with a Linux flavor in its entirety. Intermediary solutions with
+toolkit's typically cause more problems than they solve, so I avoid them.
 
 To install in the native environment:
 
@@ -118,7 +273,7 @@ To install in the native environment:
 10. Check your changes in to a windows specific branch.
 
 
-## Committing Changes
+## Saving Changes to your configuration
 
 *Don't forget to commit and push your changes back to your repository.*
 
@@ -133,16 +288,18 @@ command line, or you can use *magit* inside *emacs*. *magit* is a powerful
 *emacs* integration layer that is worth learning, and basic usage is fairy
 intuitive.
 
-# Layout
+# Repository Layout
 
-The *emacs.d* directory has several setup files. At the top level, the *init.el*
-file contains only the most generic of *emacs* settings. In our setup, it's main
-purpose is to require other settings files, which live under the *custom*
-subdirectory. This lets us break out portions of setup code into bite-sized and
-purpose specific pieces, instead of having everything inside one large file.
+This *emacs.d* directory divides emacs setup into several files. At the top
+level, the *init.el* file contains only the most generic of *emacs* settings. In
+our setup, it's main purpose is to require other settings files, which live
+under the *custom* subdirectory. This lets us break out portions of setup code
+into bite-sized and purpose specific pieces, instead of having everything inside
+one large file.
 
 
-The following list shows each settings file and a brief description of what it does:
+The following list shows the settings files and a brief description of what they
+do:
 
 * **init.el:** Main configuration entry point. Sets the package repository (melpa). Specifies required packages and custom setup files that must be loaded.
 * **custom/setup-general.el:** Contains generic display setup. Examples of such would be: match parenthesis, don't show the tool bar, display the time, set the time zone, etc.
@@ -165,7 +322,11 @@ dizzying. Many compete with each other to do similar tasks, but in different
 ways. These packages will often conflict with each other. It is best to install
 and use one new thing at a time. Learn what it can do for you and make sure it
 is not causing any issues before installing the next package. It is a trial and
-error process.
+error process. Frequently, packages conflict with each other and try to take the
+same key-bindings and run from the same hooks. If you delve deep into the
+system, you can often make them get along. That is pretty advanced, and prone to
+breakage on package updates. It is best to keep some simplicity and use one
+package for one thing at a time.
 
 Below I describe the packages currently used in this setup and where you can go
 to get more information about them.
@@ -183,94 +344,173 @@ libraries must be available at runtime. See:
 
 ## async
 
-**async** supports running code asyncronously, which lets elisp cooperatively switch between running processes whenever a process blocks on I/O. This is similar to Node.js or Python asyncio. See: <https://github.com/jwiegley/emacs-async>.
+**async** supports running code asyncronously, which lets elisp cooperatively
+switch between running processes whenever a process blocks on I/O. This is
+similar to Node.js or Python asyncio. See:
+<https://github.com/jwiegley/emacs-async>.
 
 ## window-numbering
 
-Allows us to simply switch between windows in a frame with *M-#*, where number is the number of the window from top to bottom, left to right. See: <http://nschum.de/src/emacs/window-numbering-mode/>. This is much faster than using *C-x o* repeatedly.
+Allows us to simply switch between windows in a frame with *M-#*, where number
+is the number of the window from top to bottom, left to right. See:
+<http://nschum.de/src/emacs/window-numbering-mode/>. This is much faster than
+using *C-x o* repeatedly.
 
 ## helm & helm-swoop
 
-**helm** is an advanced completion engine for *emacs* that allows you to narrow results from provided lists. It extends and replaces the default tab completion that comes out of the box with *emacs*. It compliments *company* in that they really do different things.
+**helm** is an advanced completion engine for *emacs* that allows you to narrow
+results from provided lists. It extends and replaces the default tab completion
+that comes out of the box with *emacs*. It compliments *company* in that they
+really do different things.
 
 <https://emacs-helm.github.io/helm/>
 
 Other options exist as well, like ido and ivy/counsel.
 
-**helm-swoop** uses helm to display matching content in another buffer. See <https://github.com/emacsorphanage/helm-swoop> and <https://www.emacswiki.org/emacs/HelmSwoop>. This is a helper package used by other packages and specific configurations.
+**helm-swoop** uses helm to display matching content in another buffer. See
+<https://github.com/emacsorphanage/helm-swoop> and
+<https://www.emacswiki.org/emacs/HelmSwoop>. This is a helper package used by
+other packages and specific configurations.
 
 ## projectile & helm-projectile
 
-**projectile** is an *emacs* package that adds project management support. This is similar to how monolithic IDE's provide their
-own (often IDE specific) project file format (or use something like *Maven*).  Projectile includes support for automatic refactoring of code and movement between files within projects.  It is programming language and tool agnostic and attempts to recognize projects of different types created by different tools. Frequently support for specific project types is added via the use of tool specific plugins and extensions.
+**projectile** is an *emacs* package that adds project management support. This
+is similar to how monolithic IDE's provide their own (often IDE specific)
+project file format (or use something like *Maven*).  Projectile includes
+support for automatic refactoring of code and movement between files within
+projects.  It is programming language and tool agnostic and attempts to
+recognize projects of different types created by different tools. Frequently
+support for specific project types is added via the use of tool specific plugins
+and extensions.
 
 See: <https://docs.projectile.mx/en/latest/>
 
-**helm-projectile** is an *emacs* package that extends projectile to use helm completion. See <https://github.com/bbatsov/helm-projectile>.
+**helm-projectile** is an *emacs* package that extends projectile to use helm
+completion. See <https://github.com/bbatsov/helm-projectile>.
 
 ## whitespace ws-butler or whitespace-cleanup-mode
 
 I use two different packages that can get rid of bad white-space.
 
-1. **ws-bulter:** The enabled default. This is a gentler program that only cleans up whitespace in the area you have modified. Everyone else's strange whitespacing is
-   left alone. This is the default enabled in most editing and programming modes. See: <https://github.com/lewang/ws-butler>.
+1. **ws-bulter:** The enabled default. This is a gentler program that only
+   cleans up whitespace in the area you have modified. Everyone else's strange
+   whitespacing is left alone. This is the default enabled in most editing and
+   programming modes. See: <https://github.com/lewang/ws-butler>.
 
-2. **whitespace-cleanup-mode:** This nukes all erroneous whitespace in the file everytime you save to disk. It is not on by default, but just installed. See: <https://github.com/purcell/whitespace-cleanup-mode>.
+2. **whitespace-cleanup-mode:** This nukes all erroneous whitespace in the file
+   everytime you save to disk. It is not on by default, but just installed. See:
+   <https://github.com/purcell/whitespace-cleanup-mode>.
 
-### Which one to use?
+### Which whitespace option should you use?
 
-If you are working on legacy code with others, you should probably use *ws-butler*. Using *whitespace-cleanup-mode* will result in huge commit sizes
-that have nothing to do with your change. This occurs since you will have reformatted the entire file every-time you save. If you are on greenfield development
-it should not matter as much-- *ws-bulter* will keep you safe to begin with. If you are refactoring or cleaning up code, then *whitespace-cleanup-mode* may be a better
-choice since it lets you aggressively fix bad whitespace.
+If you are working on legacy code with others, you should probably use
+*ws-butler*. Using *whitespace-cleanup-mode* will result in huge commit sizes
+that have nothing to do with your change. This occurs since you will have
+reformatted the entire file every-time you save. If you are on greenfield
+development it should not matter as much-- *ws-bulter* will keep you safe to
+begin with. If you are refactoring or cleaning up code, then
+*whitespace-cleanup-mode* may be a better choice since it lets you aggressively
+fix bad whitespace.
 
-You can manually start *whitespace-cleanup-mode* on any buffer via *M-x whitespace-cleanup-mode*. You can set it up to be always on instead of *ws-bulter* by
-editing *~/emacs.d/custom/setup-editing.el* and removing the lines commenting out *global-whitespace-cleanup-mode*. You should also comment out *ws-butler* at the
-same time (you really only want one running at a time).
+You can manually start *whitespace-cleanup-mode* on any buffer via *M-x
+whitespace-cleanup-mode*. You can set it up to be always on instead of
+*ws-bulter* by editing *~/emacs.d/custom/setup-editing.el* and removing the
+lines commenting out *global-whitespace-cleanup-mode*. You should also comment
+out *ws-butler* at the same time (you really only want one running at a time).
 
 ## volatile-highlights
 
-**volatile-highlights** briefly shows us text that has been altered or pasted in. The text will appear highlighted until the next keystroke. This provides a tiny bit more visual context to what we have done. See: <https://www.emacswiki.org/emacs/VolatileHighlights>.
+**volatile-highlights** briefly shows us text that has been altered or pasted
+in. The text will appear highlighted until the next keystroke. This provides a
+tiny bit more visual context to what we have done. See:
+<https://www.emacswiki.org/emacs/VolatileHighlights>.
 
 ## undo-tree
 
-**undo-tree** makes *emacs* undo features behave a bit more like *vim*. Instead of a linear undo, we can see a tree of changes and move between those changes. See <http://www.dr-qubit.org/emacs.php> and <https://www.emacswiki.org/emacs/UndoTree>. This is handy, but complicated to learn if you are used to the default behavior. I frequently get frustrated with remembering the new approach and may just disable this at some point.
+**undo-tree** makes *emacs* undo features behave a bit more like *vim*. Instead
+of a linear undo, we can see a tree of changes and move between those
+changes. See <http://www.dr-qubit.org/emacs.php> and
+<https://www.emacswiki.org/emacs/UndoTree>. This is handy, but complicated to
+learn if you are used to the default behavior. I frequently get frustrated with
+remembering the new approach and may disable this at some point.
 
 ## yasnippet
 
-**yasnippet** is an abbreviation template system for *emacs*. We create a setup file with abbreviations and their expanded equivalents. When we type the abbreviation, we can optionally expand it to the full equivalent text. See: <https://www.emacswiki.org/emacs/Yasnippet> & <http://github.com/joaotavora/yasnippet>.
+**yasnippet** is an abbreviation template system for *emacs*. We create a setup
+file with abbreviations and their expanded equivalents. When we type the
+abbreviation, we can optionally expand it to the full equivalent text. See:
+<https://www.emacswiki.org/emacs/Yasnippet> &
+<http://github.com/joaotavora/yasnippet>.
 
 ## anzu
 
-**anzu** is a minor-mode that displays the current match and the number of total matches in the mode-line whenever a search is occurring. See: <https://github.com/emacsorphanage/anzu>.
+**anzu** is a minor-mode that displays the current match and the number of total
+matches in the mode-line whenever a search is occurring. See:
+<https://github.com/emacsorphanage/anzu>.
 
 ## iedit
-**iedit** Let's you edit multiple matching targets simultaneously. See: <https://github.com/victorhge/iedit>.
+
+**iedit** Let's you edit multiple matching targets simultaneously. See:
+<https://github.com/victorhge/iedit>.
 
 ## markdown mode
 
-Provides the ability to edit markdown files and see the output of files edited. See: <https://www.emacswiki.org/emacs/MarkdownMode>
+Provides the ability to edit markdown files and see the output of files
+edited. See: <https://www.emacswiki.org/emacs/MarkdownMode>
 
 ## flyspell & flyspell-correct
 
 Provides spell-checking as you go. See: <https://github.com/d12frosted/flyspell-correct>.
 
+## flycheck
+
+Checks syntax for various programming languages as you go. This is used to
+display linting results and similar. It also has companion backend language and
+tool specific packages that provide it with information.
+
+Some of these work as a backup to *lsp-mode*. For example, *YAML* uses
+*flycheck-yamllint* to provide data to *flycheck* about YAML files.
+
+However, this setup will use *lsp-ui* as a backend to *flycheck* to display
+results provided from *lsp* servers for the Python and C++ languages.
+
+See: <https://www.flycheck.org/en/latest/>
+
 ## lsp-mode, lsp-ui, ccls
 
-**lsp-mode** enables the language server protocol support for *emacs*. This allows code completion and syntax highlighting for multiple programming languages. *lsp* takes a client server approach to code management. Instead of plugins running as a part of the editor, the plugin calls out to a another server process that implements support for a particular programming language. This allows developers of language features to focus on delivering engineering features and not focus on integration with one particular IDE or editor. This approach means that you will have to have a server running for each programming language you want supported. *emacs* *lsp-mode* starts these servers for you as needed. The installation is more complicated because in add to *emacs* you will have to configure and install the server separately.
+**lsp-mode** enables the language server protocol support for *emacs*. This
+allows code completion and syntax highlighting for multiple programming
+languages. *lsp* takes a client server approach to code management. Instead of
+plugins running as a part of the editor, the plugin calls out to a another
+server process that implements support for a particular programming
+language. This allows developers of language features to focus on delivering
+engineering features and not focus on integration with one particular IDE or
+editor. This approach means that you will have to have a server running for each
+programming language you want supported. *emacs* *lsp-mode* starts these servers
+for you as needed. The installation is more complicated because in add to
+*emacs* you will have to configure and install the server separately.
 
-I have found that unlike other C tagging solutions, the *lsp-mode* server scales well and is relatively fast. It lets us integrate with third-party services,  and interfaces to investigate our code.  See: <https://github.com/emacs-lsp/lsp-mode> and  <https://emacs-lsp.github.io/>.
+I have found that unlike other C tagging solutions, the *lsp-mode* server scales
+well and is relatively fast. It lets us integrate with third-party services, and
+interfaces to investigate our code.  See:
+<https://github.com/emacs-lsp/lsp-mode> and <https://emacs-lsp.github.io/>.
+
+Languages available are listed here: <https://emacs-lsp.github.io/lsp-mode/page/languages/>.
 
 You can edit *custom/setup-editing.el* to disable *lsp-mode* if you do not want this feature.
 
-**lsp-ui** Contains ui features to display results from the lsp server. See: <https://github.com/emacs-lsp/lsp-ui>
+**lsp-ui** Contains ui features to display results from the lsp server. See:
+<https://github.com/emacs-lsp/lsp-ui>
 
-**emacs-ccls** is an emacs mode that runs the ccls server (you must  install ccls server). This provides lsp data for C/C++ & Objective C. See: <https://github.com/MaskRay/emacs-ccls>. 
+**emacs-ccls** is an emacs mode that runs the ccls server (you must install ccls
+server). This provides lsp data for C/C++ & Objective C. See:
+<https://github.com/MaskRay/emacs-ccls>.
 
 The current setup enables both of these. You can edit *custom/setup-c.el* to change this.
 
-In order to use C++ features of ccls and lsp-mode, you will need to have *ccls* installed.
-For detailed instructions on how to install and setup the *ccls* server, see <https://github.com/MaskRay/ccls/wiki>.
+In order to use C++ features of ccls and lsp-mode, you will need to have *ccls*
+installed.  For detailed instructions on how to install and setup the *ccls*
+server, see <https://github.com/MaskRay/ccls/wiki>.
 
 Quick instructions follow:
 
@@ -280,8 +520,9 @@ Debian based:
 sudo apt-get install clang ccls
 ```
 
-For RHEL, you must follow the instructions in the wiki to build from source or
-add a snap. You will have to install *snap* from epel packages to use *snaps*:
+For RHEL, you must follow the instructions in the above wiki to build from
+source or add a snap. You will have to install *snap* from epel packages to use
+*snaps*:
 
 ```bash
 sudo yum install snapd
@@ -294,8 +535,9 @@ sudo snap install ccls --classic
 implications. Know that before you blindly type the above into a terminal.
 
 **python-lsp-server** If you want to use lsp-mode with Python, you will need a
-python language back-end, such as the python-lsp-server. You can install this in
-your python environment with pip:
+python language back-end, such as the *python-lsp-server*. Since
+*python-lsp-server* is a python package, you can install it in your python
+environment with pip:
 
 ```bash
 pip install python-lsp-server[all]
@@ -305,7 +547,10 @@ The current setup enables *python-lsp-server*. You can edit
 *custom/setup-python.el* and *custom/setup-editing.el* to change or disable
 this.
 
-Note that the default install of *python-lsp-server*  sets it up to use *flake8* by default.
+Note that the default install of *python-lsp-server* sets it up to use *flake8* by default.
+
+Further note that the *python-language-server* by Palantir is the deprecated
+older version of *python-lsp-server*, so don't install it.
 
 ## Native code compilation
 
@@ -315,7 +560,11 @@ A native compilation feature that I have set up is:
 (setq comp-deferred-compilation t)
 ```
 
-This option means that when you start *emacs* after upgrading packages from *melpa/elpha*-- that *emacs* will compile all *emacs lisp* files to native machine code. This will cause *emacs* to pause and will use large amounts of CPU. Once done, things are **much** faster.
+This option means that when you start *emacs* after upgrading packages from
+*melpa/elpha*-- that *emacs* will compile all *emacs lisp* files to native
+machine code. This will cause *emacs* to pause and will use large amounts of CPU
+while compiling. Once done, things are **much** faster. Comment the line out if
+you don't want this.
 
 ## magit
 
@@ -348,16 +597,17 @@ Both provide advanced Python specific IDE abilities and greatly enhance the
 Python programming experience inside *emacs*.
 
 Both have some of the same features and this overlap means they are not fully
-compatible. You will have to pick one.
+compatible. You will have to pick one without lots of custom configuring.
 
-In general, *elpy* is leaner. *lsp-mode* is slower with more features and
-provides a more consistent interface between the different programming languages
-which *lsp-mode* supports.
+In general, *elpy* is a bit leaner. *lsp-mode* is slower and provides a more
+consistent interface between the different programming languages which
+*lsp-mode* supports.
 
 *lsp-mode* is a compelling choice if you use the lsp-server to enforce
 consistent style and code requirements across a shop/team. You simply pick a
 server and configure it with the standard requirements and everyone can use
-their own preferred editor/IDE pointed at the lsp server.
+their own preferred editor/IDE pointed at the lsp server. Then everyone is
+writing code to the same standards.
 
 The default setup for Python uses *python-lsp-server*.
 
@@ -380,7 +630,7 @@ A good guide for configuring and setting up *python-lsp-server* is here:
 See: <https://elpy.readthedocs.io/en/latest/introduction.html> for more info on *elpy*.
 
 By default, *elpy* is disabled in favor of LSP, but you can edit
-*custom/setup-python.el* to change this, first uncomment sections referencing
+*custom/setup-python.el* to enable it. First, uncomment sections referencing
 *elpy*. and then comment all sections in all files referencing *lsp-mode* and
 python in *custom/setup-editing.el*.
 
@@ -414,17 +664,18 @@ and more hands-on approach to enforcing code-style beyond pep8 compliance.
 
 In general, you should configure your editor to use 1 of these at a time.
 
-However, you can install all of them and have different linting tools run as
-part of your gating process.
+However, you can still install all of them on your machine and have different
+linting tools run them as part of your gating process-- both inside or outside
+of *emacs*.
 
 
-To install all python packages needed by Elpy:
+To install all python packages supported by Elpy:
 
 ```bash
 pip install autopep8 jedi rope yapf black flake8 pydocstyle
 ```
 
-To install all optional packages needed by *python-lsp-server*:
+To install all optional packages supported by *python-lsp-server*:
 
 ```bash
 pip install python-lsp-server[all]
@@ -469,7 +720,9 @@ max-line-length = 160
 
 ## Using the python invoke package
 
-Most of my Python projects use a package called *invoke* to execute the creation of build and release targets. *invoke* is a "task execution tool and library." It is similar in purpose to *make*, *maven* or Ruby *rake*. 
+Most of my Python projects use a package called *invoke* to execute the creation
+of build and release targets. *invoke* is a "task execution tool and library."
+It is similar in purpose to *make*, *maven* or Ruby *rake*.
 
 You can install it:
 
@@ -477,7 +730,7 @@ You can install it:
 pip install invoke
 ```
 
-To setup invoke, you create a tasks.py file in the top level of your package:
+To setup invoke, you create a tasks.py file in the top directory of your package:
 
 
 Here is an example *tasks.py* file:
@@ -727,7 +980,7 @@ At this point, I use the *VISUAL* variable for editors running in *X* or
 *wayland* and *EDITOR* for editors running inside a terminal. This is not really
 what they were originally intended for, but that usage is archaic for most users
 anyway: unless your primary display screen consists of a teletype machine with a
-300 baud modem and a printer instead of a monitor, or your are developing
+300 baud modem and a printer instead of a display, or your are developing
 kernels/drivers that assume such things for debugging purposes. Regardless, you
 should understand what these two variables mean to other UNIX era legacy
 programs before you decide to mimic this setup, or you may run into issues when
@@ -744,8 +997,8 @@ windows/frames alone.
 
 Note that these commands and options are specific to recent versions of
 *emacs*. Older versions of *emacs* and *emacsclient* take different
-options. Older versions of *emacs* don't have an *emacsclient*, or call it by a
-different name.
+options. Very old versions of *emacs* don't have an *emacsclient*, or call it by
+a different name.
 
 
 ## Systemd integration
@@ -756,15 +1009,22 @@ starts. Instructions to do so are here:
 <https://nilsdeppe.com/posts/emacs-c++-ide2>. I don't do this as it seems
 overkill for my use case.
 
+## *emacs* daemon startup on Desktop load
+
 Optionally, you could also start *emacs* in dameon mode when your X desktop
 starts. Instructions for doing so are specific to the desktop or X environment
 that you use, but usually involve something along the lines of running a "Startup
 Programs" option under your desktop environments control panel or settings.
 
+## Making emacs your tiling window manager
+
+Another option worth consideration is just making *emacs* your window manager.
+See: <https://github.com/ch11ng/exwm>.
+
 ## Custom projectile project setup via dot dir-locals files
 
-I often set projectile variables to perform custom operations for each project
-via the dot dir-locals file at the root of each source project:
+I often set projectile variables to perform custom operations per project.
+This is done via the dot dir-locals file at the root of each source project:
 *.dir-locals.el*.
 
 For example, I use the invoke package for all Python package build
@@ -800,131 +1060,6 @@ directory in a cloned git repository), create a file called
 Change the quoted commands to match your custom build, compile, install and test targets.
 
 
-# Tutorials & Resources
-
-If you are new to *emacs* you may want to read some tutorials before copying a
-setup like this or just installing *doom* or *spacemacs*.
-
-A good place to start is reading the official GNU manual for *emacs*. You can do
-this on your local machine using the *info* command, or you can read the online
-manual: <https://www.gnu.org/software/emacs/manual/>.
-
-Much of this setup has been taken from the sources below over the years and modified
-for my specific use.
-
-## General resources:
-
-* <https://www.emacswiki.org/>
-* <http://ergoemacs.org/>
-* <https://www.reddit.com/r/emacs/>
-* <https://masteringemacs.org>
-
-## LSP Setup
-
-* <https://emacs-lsp.github.io/lsp-mode/>
-- <https://www.youtube.com/watch?v=jPXIP46BnNA&list=PLEoMzSkcN8oNvsrtk_iZSb94krGRofFjN&index=3>
-
-## C++ setup resources:
-
-* <http://tuhdo.github.io/c-ide.html>
-* <https://nilsdeppe.com/posts/emacs-c++-ide2>
-* <https://www.sandeepnambiar.com/setting-up-emacs-for-c++/>
-* <https://trivialfis.github.io/emacs/2017/08/02/C-C++-Development-Environment-on-Emacs.html>
-
-
-## Python setup resources:
-
-* <https://elpy.readthedocs.io/>
-
-
-## Javascript setup resources:
-
-* <https://patrickskiba.com/emacs/2019/09/07/emacs-for-react-dev.html>
-* <http://wikemacs.org/wiki/JavaScript>
-
-
-## Pre-configured emacs distributions
-
-There are modified distributions of *GNU emacs* that are purpose specific and
-configured "out-of-the-box". They won't work with this setup since they provide
-their own pre-rolled packages and settings. You may wish to consider using one
-of them.
-
-**Spacemacs** is geared to *emacs* beginners with *vi/vim* experience:
-
-* <https://www.spacemacs.org/>
-
-**Doom-emacs** is geared to more experienced power users who want a leaner
-experience than spacemacs:
-
-* <https://github.com/hlissner/doom-emacs>
-
-**Prelude** is a distribution of *emacs* geared towards simplicity and
-reliability. It is more conservative and closer to *emacs*, but with packages
-setup to work in most languages:
-
-* <https://prelude.emacsredux.com/en/latest>
-
-# How to build emacs from source
-
-Sometimes, the distributions version of *GNU emacs* is not up to par. Currently,
-this is the case for me as *GNU emacs 27* from git contains features that are very
-compelling, like native compilation of emacs lisp files via *libgccjit*.
-
-
-Below are my brief notes for building your own *GNU emacs*. You will need the source
-code to the version of *emacs* that you wish to build.
-
-You can get the latest source tree from git:
-
-```bash
-git clone git://git.savannah.gnu.org/emacs.git
-```
-
-
-## Building GNU emacs 27+ On Ubuntu (and similar):
-
-```bash
-# add sources repos in /etc/apt/sources.list by uncommenting srcs repositories matching the binary equivalents.
-sudo apt-get update
-# this isnt perfect as it doesnt track the most recent emacs but it gets you close
-sudo apt-get build-dep emacs
-# some other things that you want, versions may be out of date
-sudo apt-get install libgtk-3-dev libwebkit2gtk-4.0-dev libjansson-dev libjansson4 libgccjit-10-dev
-# checkout emacs
-git clone git://git.savannah.gnu.org/emacs.git
-cd emacs
-./autgen.sh
-# change the prefix to be whereever you wish. Your local home directory if you want.
-./configure --with-modules --with-cairo --with-xwidgets --with-x-toolkit=gtk3 --with-mailutils --with-imagemagick --prefix=/usr/local --with-native-compilation
-# go to lunch, this takes awhile as emacs compiles all emacs lisp to machine code
-make -j
-sudo make install prefix=/usr/local
-```
-
-## Building GNU emacs 27+ On RHEL (and similar):
-
-```bash
- sudo yum -y install jansson jansson-devel devtoolset-10-all devtoolset-10-toolchain devtoolset-10-perftools devtoolset-10-libgccjit devtoolset-10-libgccjit-devel devtoolset-10-build
-
-scl enable devtoolset-10 bash
-
-git clone git://git.savannah.gnu.org/emacs.git
-
-cd emacs
-
-./autogen.sh
-
-./configure --with-modules --with-cairo --with-xwidgets --with-x-toolkit=gtk3 --with-mailutils --with-imagemagick --prefix=/usr/local --with-native-compilation
-
-# goto lunch as this compiles all emacs lisp files to native machine code
-make -j
-
-# install
-sudo make install prefix=/usr/local
-```
-
-Note that with this setup you will need to enable devtoolset-10 via *scl* each time you start your sessions, before you can run *emacs*.
 
 # Setting up the Kenesis Advantage II keyboard for emacs
 
@@ -965,7 +1100,8 @@ the use of your pinky finger-- a horrible finger from an ergonomic standpoint as
 it is the smallest and most fragile.
 
 *emacs* was developed on an older system that had a keyboard known as the *space
-cadet* keyboard because it had so many modifier keys.
+cadet* keyboard because it had so many modifier keys that it looked like some
+control panel in a spaceship.
 
 
 ## What is a macro?
@@ -981,8 +1117,8 @@ of *c*. For example, if the programmed macro told it to type "Hello", it would
 output *Hello* instead of *c*. That wouldn't be very usable. Usually macros and
 lisp functions are bound to modifier key combinations called *chords*. For
 example, *Cnt-X, Cnt-S* saves the contents of an *emacs* buffer to disk. In this
-case their is an *emacs* function bound to the chorded key combination *Cnt-X,
-Cnt-S*.
+case, an *emacs* function is bound to the chorded key combination: *Cnt-X,
+Cnt-S*. You could rebind if you to any other key in *emacs* if you wanted to.
 
 
 ## What are emacs macros?
@@ -990,45 +1126,45 @@ Cnt-S*.
 *emacs* means *editor macros*, or an editor that supported saving macros and
 lisp functions, binding them to key chords, and then replaying them when the
 chords were called. This was a core concept of the editor and was considered a
-"killer-feature" of its day. It differentiated it from most other editors.
+"killer-feature" of its day. It differentiated *emacs* from most other editors.
 
 ## What are Kenesis keyboard macros?
 
-In our case, we are not talking about *emacs* macros now, but are instead
-talking about a keyboard feature of the Kenesis keyboard that allows you to save
-macros into the keyboard's memory and then retrieve them and replay them without
-retyping them. Kenesis added this feature as an ergonomic way to save keyboard
-users from having to type difficult sequences over and over again. So when we
-talk about these macros, we are not talking about storing macros inside of
-*emacs* itself.
+In the case of this keyboard, we are not talking about *emacs* macros. Instead,
+we are talking about a keyboard feature of the Kenesis keyboard that
+allows you to save macros into the keyboard's memory and then retrieve them and
+replay them without retyping them. Kenesis added this feature as an ergonomic
+way to save keyboard users from having to type difficult sequences over and over
+again. So when we talk about these macros, we are not talking about storing
+macros inside of *emacs* itself.
 
 A keyboard stored macro will simply replay to the operating system, and the
 macros stored could be for anything: *Microsoft Word*, or a button-combo for a
-video game. I just happen to save macros in my keyboard that are also for
-*emacs*. In case you are wondering: Yes, I could program keyboard macros that in
+video game. I just happen to save macros in my keyboard that type out *emacs*
+*chords*. In case you are wondering: Yes, I could program keyboard macros that in
 turn called custom written emacs macros. Which is very meta.
 
 So why do this in a keyboard instead of just using *emacs* macros directly?
 
 Because *emacs* only has so many high quality modifier keys to bind its own
-macros too. A downside of keyboards only having so few usable modifier keys is
-that you eventually have macros and functions bound to weird un-ergonomic
-keyboard combinations that aren't really usable:
+macros too. A downside of keyboards having few usable modifier keys is that you
+eventually have macros and functions bound to weird un-ergonomic keyboard
+combinations that aren't really usable:
 *C-M-Spc-some-weird-thing-you-have-to-type-and-wont-remember-ever* is one of the
 biggest problems with *emacs*, or any similar editor.
 
 The traditional *IDE* way to handle this is to have large drop-down lists and
-icons everywhere cluttering up your screen that require you to cycle through
-them with a mouse or hot keys and arrows.
+icons everywhere-- cluttering up your screen. They require you to cycle through
+them with a mouse or hot keys and arrow keys.
 
 More modern approaches use a search to just find the command you want to run as
 you type something resembling it into the search window, which is much
 better. *emacs* has supported such *completions* for decades at least.
 
-Quicker still would be to extend the amount of ergonomic and simple to remember
-key combinations-- so you have more usable keys to bind to. In other words, we
-need more simple to use modifier keys, like the original keyboard used by the
-first *emacs* users.
+Quicker still would be to extend the amount of simple to remember key
+combinations-- so you have more usable keys to bind to. In other words, we need
+more simple to use modifier keys, like the original keyboard used by the first
+*emacs* users.
 
 
 ## Rebinding/re-programming keys in the keyboard
@@ -1054,9 +1190,9 @@ the keypad layer on, pressing the *a* key-- and then pressing the *keypd* key
 again to exit the keypad layer.
 
 So far, that is not an improvement over using poorly chorded *emacs* keybindings
-and commands. Especially since the *keypd* key is way up to the top right of the
-keyboard and is a second-class tiny foamy-chicklet-style button that you cannot
-find by touch. It is not even a real modifier key, but a toggle like
+and commands. What is worse is that the *keypd* key is way up to the top right
+of the keyboard and is a second-class tiny foamy-chicklet-style button that you
+cannot find by touch. It is not even a real modifier key, but a toggle like
 *caps lock*. So why bother with binding macros to this keypad layer?
 
 Kenesis offers a series of foot pedal controllers. I use one of these as a big
@@ -1067,14 +1203,14 @@ down.
 
 So when I press and hold the footpedal and hit the c key (*kp-c*), the keyboard
 runs an internal macro that I have programmed. Instead of emitting *c*, it now
-"types": *Cntl-c p c*. This is the command used in *emacs* projectile mode to
+"types": *Cntl-c p c*. This is the *chord* used by *emacs* projectile mode to
 compile a project. Holding the foot-pedal and hitting the "c" key is much
 quicker than typing *Cntrl-c p c -> Enter*. It is far better than reaching for
 the rat and clicking on a tiny gear icon in some GUI IDE.
 
 Of course, for this to work you first must program the macros into your Kenesis
 keyboard. Which means you must have a Kenesis keyboard. To use the keypad layer
-with modifier key, you must also have a foot pedal.
+with modifier key, you must also have something like the foot pedal.
 
 If you keyboard professionally, it is worth investing in these items *before*
 you get repetitive stress injuries, regardless of what editor or IDE you use. In
@@ -1085,6 +1221,7 @@ over and over will give anyone an RSI over a lifetime of professional use.
 Here are the macros I have programmed into my keyboard and what they do:
 
 ## Keypad layer to emacs command mapping
+
 | Keypad Command | command | emacs keybinding (if bound) |
 | -------------  |-------------| -----|
 | **Cursor movement keys** |   |  |
